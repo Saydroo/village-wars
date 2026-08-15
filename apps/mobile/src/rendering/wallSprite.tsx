@@ -61,7 +61,7 @@ function IsoBlock({ x, y, hw, hh, h, top, left, right }: {
   );
 }
 
-export function WallSprite({ cx, cy, connection }: WallSpriteProps): React.ReactElement {
+function WallSpriteImpl({ cx, cy, connection }: WallSpriteProps): React.ReactElement {
   const arms: Array<'n' | 'e' | 's' | 'w'> = [];
   if (connection.n) arms.push('n');
   if (connection.e) arms.push('e');
@@ -82,3 +82,15 @@ export function WallSprite({ cx, cy, connection }: WallSpriteProps): React.React
     </Group>
   );
 }
+
+/**
+ * React.memo — RENDER-PERFORMANCE: Der Kampf zeichnet jeden Frame/State-Update neu.
+ * Ohne Memo wurde JEDE Mauer (~40 im Ring) jeden Render komplett neu als Iso-Block-
+ * Baum aufgebaut (Messung: ~205 WallSprite-Bodies/s — die Haupt-Render-Bremse).
+ * Voraussetzung ist eine referenzstabile `connection`-Prop: `wallConnectionAt()`
+ * erzeugt sonst pro Render ein frisches Objekt. In BattleCanvas via `wallConnById`
+ * (useMemo) vorberechnet, analog zu useHumanBuildingSprites bei den Gebäuden. Die
+ * Zerstörungs-Animation läuft über den `scale`-Transform der umschließenden Group
+ * (nicht über WallSprite) und bleibt daher voll erhalten.
+ */
+export const WallSprite = React.memo(WallSpriteImpl);

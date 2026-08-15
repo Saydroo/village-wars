@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View } from 'react-native';
 import { Canvas, Circle, Group, Image as SkiaImage, Path, Rect, vec } from '@shopify/react-native-skia';
-import type { BattleBuilding, BattleStateUpdate, EffectsConfig, DeployZoneBuilding } from '@village-wars/shared';
+import type { BattleBuilding, BattleStateUpdate, EffectsConfig, DeployZoneBuilding, WallConnection } from '@village-wars/shared';
 import { gridToScreen, screenToGrid, lerpColor, unitDisplayWidth, wallPredicate, wallConnectionAt, footprintCenter, isDeployBlocked, deployBlockedTiles } from '@village-wars/shared';
 import { BuildingSprite } from '../../rendering/buildingSprite';
 import { WallSprite } from '../../rendering/wallSprite';
@@ -187,6 +187,19 @@ export function BattleCanvas({
     [buildings],
   );
 
+  // Mauer-Verbindung je Mauer EINMAL vorberechnen (referenzstabil), damit
+  // React.memo(WallSprite) greift: wallConnectionAt() erzeugt sonst pro Render ein
+  // frisches WallConnection-Objekt → die Prop-Referenz wechselte jeden Frame und die
+  // Memo liefe leer. Das Mauer-Layout (isWallTile) ist im Kampf statisch, also bleibt
+  // die Verbindung konstant — dieselbe Idee wie useHumanBuildingSprites (useMemo).
+  const wallConnById = useMemo(() => {
+    const m = new Map<string, WallConnection>();
+    for (const b of buildings) {
+      if (b.building_type === 'wall') m.set(b.id, wallConnectionAt(isWallTile, b.gx, b.gy));
+    }
+    return m;
+  }, [buildings, isWallTile]);
+
   // --- Trigger aus dem Live-Update ableiten (Treffer, Zerstörung, Spawn, Tod) ---
   useEffect(() => {
     if (!update) return;
@@ -350,7 +363,7 @@ export function BattleCanvas({
       if (!alive && cs === undefined) return null;
       return (
         <Group key={b.id} transform={[{ scale: collapseScale(b.id) }]} origin={vec(c.x, c.y)}>
-          <WallSprite cx={c.x} cy={c.y} connection={wallConnectionAt(isWallTile, b.gx, b.gy)} />
+          <WallSprite cx={c.x} cy={c.y} connection={wallConnById.get(b.id) ?? wallConnectionAt(isWallTile, b.gx, b.gy)} />
         </Group>
       );
     }
