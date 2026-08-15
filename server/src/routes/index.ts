@@ -1,0 +1,43 @@
+import { Router } from 'express';
+import { healthRouter } from './health';
+import { configRouter } from './config';
+import { authRouter } from './auth';
+import { playerRouter } from './player';
+import { villageRouter } from './village';
+import { unitsRouter } from './units';
+import { battleRouter } from './battle';
+import { clanRouter } from './clan';
+import { leaderboardRouter } from './leaderboard';
+import { dungeonRouter } from './dungeon';
+import { shopRouter } from './shop';
+import { dailyRouter } from './daily';
+import { achievementsRouter } from './achievements';
+import { researchRouter } from './research';
+import { questsRouter } from './quests';
+import { heroesRouter } from './heroes';
+import { seasonPassRouter } from './seasonPass';
+import { onboardingRouter } from './onboarding';
+import { eventsRouter } from './events';
+
+/** Aggregiert alle REST-Router unter /api. */
+export const apiRouter = Router();
+
+apiRouter.use('/health', healthRouter);
+apiRouter.use('/config', configRouter);
+apiRouter.use('/auth', authRouter);
+apiRouter.use('/player', playerRouter);
+apiRouter.use('/village', villageRouter);
+apiRouter.use('/units', unitsRouter);
+apiRouter.use('/battle', battleRouter);
+apiRouter.use('/clan', clanRouter);
+apiRouter.use('/leaderboard', leaderboardRouter);
+apiRouter.use('/dungeon', dungeonRouter);
+apiRouter.use('/shop', shopRouter);
+apiRouter.use('/daily', dailyRouter);
+apiRouter.use('/achievements', achievementsRouter);
+apiRouter.use('/research', researchRouter);
+apiRouter.use('/quests', questsRouter);
+apiRouter.use('/heroes', heroesRouter);
+apiRouter.use('/season-pass', seasonPassRouter);
+apiRouter.use('/onboarding', onboardingRouter);
+apiRouter.use('/events', eventsRouter);

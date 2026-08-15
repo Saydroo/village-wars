@@ -1,0 +1,26 @@
+{
+  "script": "research_lab_tiered.py",
+  "out": "C:\\Users\\Ufuk\\Claude Code\\Village-Wars\\design\\blender\\_nosockel\\research_lab.png",
+  "res": 700,
+  "ortho_scale": 5.84,
+  "footx": 350.0,
+  "footy": 506.86,
+  "bbox_world": [
+    -1.6666,
+    1.4372,
+    -1.12,
+    1.36,
+    0.0,
+    2.138
+  ],
+  "width_world": 3.1038,
+  "depth_world": 2.48,
+  "removed_ground_objects": [
+    "dirt",
+    "grass",
+    "grass2",
+    "tuft",
+    "tuft.001",
+    "yard"
+  ]
+}

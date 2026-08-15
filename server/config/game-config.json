@@ -1,0 +1,1334 @@
+{
+  "_meta": {
+    "version": "0.1.0",
+    "description": "Zentrale Balancing-Konfiguration für Village Wars. Alle Zahlenwerte (Kosten, Zeiten, Kampfwerte) gehören hierher, nicht in den Code.",
+    "currency_legend": {
+      "wood": "Holz",
+      "stone": "Stein",
+      "gold": "Gold (selten, NICHT die Premium-Währung)",
+      "gems": "Edelsteine (sehr selten, Dungeon-exklusiv)",
+      "bars": "Goldbarren (Premium-Ingame-Währung, NICHT spielerisch erwirtschaftbar)"
+    },
+    "balance_principle": "Humans = 100% Baseline auf allen Werten. Jede andere Fraktion hat genau einen Bonus (+10% bis +20%) und genau einen Malus (-10% bis -20%) gegenüber dem Baseline. Keine Fraktion darf in Summe stärker oder schwächer sein."
+  },
+
+  "factions": {
+    "humans": {
+      "display_name": "Menschen",
+      "theme": "Grasland, Burgen, Flüsse",
+      "bonus": null,
+      "malus": null,
+      "bonus_description": "Keiner – Allrounder-Fraktion, dient als 100%-Baseline für alle anderen Werte.",
+      "malus_description": "Keiner.",
+      "modifiers": {
+        "build_time_multiplier": 1.0,
+        "build_cost_multiplier": 1.0,
+        "resource_production_multiplier": 1.0,
+        "wall_hp_multiplier": 1.0,
+        "unit_hp_multiplier": 1.0,
+        "unit_damage_multiplier": 1.0,
+        "unit_speed_multiplier": 1.0,
+        "ranged_unit_damage_multiplier": 1.0,
+        "defense_building_cost_multiplier": 1.0,
+        "upgrade_cost_multiplier": 1.0
+      }
+    },
+    "fishfolk": {
+      "display_name": "Fischmenschen",
+      "theme": "Küsten-/Sumpfdorf, Stege, Wasserkanäle",
+      "bonus_description": "+15% Ressourcenproduktion bei Gebäuden, die an Wasserkanal-Tiles angrenzen.",
+      "malus_description": "-15% Mauer-HP (schwächere Landverteidigung).",
+      "modifiers": {
+        "build_time_multiplier": 1.0,
+        "build_cost_multiplier": 1.0,
+        "resource_production_multiplier": 1.0,
+        "resource_production_multiplier_water_adjacent": 1.15,
+        "wall_hp_multiplier": 0.85,
+        "unit_hp_multiplier": 1.0,
+        "unit_damage_multiplier": 1.0,
+        "unit_speed_multiplier": 1.0,
+        "ranged_unit_damage_multiplier": 1.0,
+        "defense_building_cost_multiplier": 1.0,
+        "upgrade_cost_multiplier": 1.0
+      }
+    },
+    "giants": {
+      "display_name": "Riesen",
+      "theme": "Grobe Steinhütten, große Bauplätze",
+      "bonus_description": "+20% HP und +15% Schaden auf alle Einheiten.",
+      "malus_description": "+20% Bauzeit und +15% Baukosten auf alle Gebäude/Upgrades.",
+      "modifiers": {
+        "build_time_multiplier": 1.20,
+        "build_cost_multiplier": 1.15,
+        "resource_production_multiplier": 1.0,
+        "wall_hp_multiplier": 1.0,
+        "unit_hp_multiplier": 1.20,
+        "unit_damage_multiplier": 1.15,
+        "unit_speed_multiplier": 1.0,
+        "ranged_unit_damage_multiplier": 1.15,
+        "defense_building_cost_multiplier": 1.0,
+        "upgrade_cost_multiplier": 1.15
+      }
+    },
+    "dwarves": {
+      "display_name": "Zwerge",
+      "theme": "Bergbau-Siedlung, Stollen, Schmieden",
+      "bonus_description": "-15% Gebäude-Upgrade-Kosten, +15% Stein-/Goldabbau.",
+      "malus_description": "-20% Schaden für Fernkampf-Einheiten.",
+      "modifiers": {
+        "build_time_multiplier": 1.0,
+        "build_cost_multiplier": 1.0,
+        "upgrade_cost_multiplier": 0.85,
+        "resource_production_multiplier": 1.0,
+        "resource_production_multiplier_stone": 1.15,
+        "resource_production_multiplier_gold": 1.15,
+        "wall_hp_multiplier": 1.0,
+        "unit_hp_multiplier": 1.0,
+        "unit_damage_multiplier": 1.0,
+        "unit_speed_multiplier": 1.0,
+        "ranged_unit_damage_multiplier": 0.80,
+        "defense_building_cost_multiplier": 1.0
+      }
+    },
+    "elves": {
+      "display_name": "Elfen",
+      "theme": "Waldlichtung, Baumhäuser",
+      "bonus_description": "+20% Bewegungsgeschwindigkeit und +15% Angriffsgeschwindigkeit (Angriffe pro Sekunde) im Kampf.",
+      "malus_description": "-15% Gebäude-HP (leichter zu zerstören).",
+      "modifiers": {
+        "build_time_multiplier": 1.0,
+        "build_cost_multiplier": 1.0,
+        "resource_production_multiplier": 1.0,
+        "wall_hp_multiplier": 1.0,
+        "building_hp_multiplier": 0.85,
+        "unit_hp_multiplier": 1.0,
+        "unit_damage_multiplier": 1.0,
+        "unit_speed_multiplier": 1.20,
+        "attack_speed_multiplier": 1.15,
+        "ranged_unit_damage_multiplier": 1.0,
+        "defense_building_cost_multiplier": 1.0,
+        "upgrade_cost_multiplier": 1.0
+      }
+    },
+    "undead": {
+      "display_name": "Untote",
+      "theme": "Friedhof, verfallene Ruinen",
+      "bonus_description": "-15% Ressourcenkosten für Einheiten, ausgewählte Einheiten regenerieren HP im Kampf (siehe unit_special_abilities).",
+      "malus_description": "-15% Basis-Ressourcenproduktion (Holz/Stein).",
+      "modifiers": {
+        "build_time_multiplier": 1.0,
+        "build_cost_multiplier": 1.0,
+        "resource_production_multiplier": 0.85,
+        "unit_cost_multiplier": 0.85,
+        "wall_hp_multiplier": 1.0,
+        "unit_hp_multiplier": 1.0,
+        "unit_damage_multiplier": 1.0,
+        "unit_speed_multiplier": 1.0,
+        "ranged_unit_damage_multiplier": 1.0,
+        "defense_building_cost_multiplier": 1.0,
+        "upgrade_cost_multiplier": 1.0
+      }
+    },
+    "orcs": {
+      "display_name": "Orks",
+      "theme": "Lagerfeste, Palisaden, Kriegszelte",
+      "bonus_description": "+20% Nahkampfschaden.",
+      "malus_description": "+20% Baukosten für Verteidigungsgebäude.",
+      "modifiers": {
+        "build_time_multiplier": 1.0,
+        "build_cost_multiplier": 1.0,
+        "resource_production_multiplier": 1.0,
+        "wall_hp_multiplier": 1.0,
+        "unit_hp_multiplier": 1.0,
+        "melee_unit_damage_multiplier": 1.20,
+        "unit_damage_multiplier": 1.0,
+        "unit_speed_multiplier": 1.0,
+        "ranged_unit_damage_multiplier": 1.0,
+        "defense_building_cost_multiplier": 1.20,
+        "upgrade_cost_multiplier": 1.0
+      }
+    },
+    "dragonfolk": {
+      "display_name": "Drachenmenschen",
+      "theme": "Vulkanische Klippen, Drachenhorste, Obsidian-Festungen",
+      "bonus_description": "+20% Fernkampfschaden (feuriger Drachenodem).",
+      "malus_description": "+20% Rekrutierungskosten für alle Einheiten (mächtige Drachenwesen sind teuer).",
+      "modifiers": {
+        "build_time_multiplier": 1.0,
+        "build_cost_multiplier": 1.0,
+        "resource_production_multiplier": 1.0,
+        "wall_hp_multiplier": 1.0,
+        "unit_hp_multiplier": 1.0,
+        "unit_damage_multiplier": 1.0,
+        "unit_speed_multiplier": 1.0,
+        "ranged_unit_damage_multiplier": 1.20,
+        "unit_cost_multiplier": 1.20,
+        "defense_building_cost_multiplier": 1.0,
+        "upgrade_cost_multiplier": 1.0
+      }
+    }
+  },
+
+  "town_hall_levels": {
+    "description": "Dorf-Level 1-10. Schaltet Gebäude/Einheiten progressiv frei (siehe unlock_town_hall_level in buildings/units). Level 5 schaltet Clans frei.",
+    "max_level": 10,
+    "upgrade_requirements": [
+      { "level": 1, "wood": 0, "stone": 0, "build_time_minutes": 0 },
+      { "level": 2, "wood": 500, "stone": 300, "build_time_minutes": 15 },
+      { "level": 3, "wood": 1500, "stone": 1000, "build_time_minutes": 60 },
+      { "level": 4, "wood": 4000, "stone": 2800, "build_time_minutes": 240 },
+      { "level": 5, "wood": 9000, "stone": 6500, "build_time_minutes": 720 },
+      { "level": 6, "wood": 18000, "stone": 13000, "gold": 1000, "build_time_minutes": 1440 },
+      { "level": 7, "wood": 32000, "stone": 24000, "gold": 3000, "build_time_minutes": 2880 },
+      { "level": 8, "wood": 55000, "stone": 42000, "gold": 7000, "build_time_minutes": 4320 },
+      { "level": 9, "wood": 90000, "stone": 70000, "gold": 14000, "build_time_minutes": 7200 },
+      { "level": 10, "wood": 140000, "stone": 110000, "gold": 25000, "gems": 200, "build_time_minutes": 10080 }
+    ]
+  },
+
+  "build_time_skip": {
+    "description": "Bauzeit-Verkürzung gegen Goldbarren ist erlaubt, aber bewusst teuer kalkuliert, damit nicht alles 'durchgerusht' werden kann. Zweiter Verwendungszweck der Goldbarren neben Skins.",
+    "cost_per_minute_remaining": {
+      "tier_short": { "max_minutes": 60, "bars_per_minute": 2 },
+      "tier_medium": { "max_minutes": 720, "bars_per_minute": 1.2 },
+      "tier_long": { "max_minutes": 100000, "bars_per_minute": 0.6 }
+    },
+    "minimum_cost_bars": 20,
+    "notes": "Degressive Staffelung: lange Bauzeiten kosten pro Minute weniger, aber in Summe trotzdem hohe Gesamtkosten. Mindestkosten verhindern Mikro-Skips für 1-2 Goldbarren."
+  },
+
+  "faction_change": {
+    "description": "Kosten für nachträglichen Fraktionswechsel (Abschnitt 5 des Briefings: 'in game-config.json konfigurierbar'). Im Appendix-JSON fehlte das Feld, gehört aber laut Spezifikation hierher und nicht in den Code.",
+    "cost_bars": 500
+  },
+
+  "resources": {
+    "wood": { "display_name": "Holz", "type": "basic", "earnable_passively": true, "lootable_pvp": true, "loot_percentage_on_defeat": 20 },
+    "stone": { "display_name": "Stein", "type": "basic", "earnable_passively": true, "lootable_pvp": true, "loot_percentage_on_defeat": 20 },
+    "gold": { "display_name": "Gold", "type": "rare", "earnable_passively": true, "lootable_pvp": false, "source": ["passive_production_low_rate", "dungeon_reward"] },
+    "gems": { "display_name": "Edelsteine", "type": "very_rare", "earnable_passively": false, "lootable_pvp": false, "source": ["dungeon_reward"] },
+    "bars": { "display_name": "Goldbarren", "type": "premium", "earnable_passively": false, "lootable_pvp": false, "source": ["real_money_purchase", "clan_leaderboard_top5_seasonal"] }
+  },
+
+  "economy": {
+    "description": "Ökonomie-Parameter für den Ressourcen-Tick (Phase 2). Im Appendix-JSON nicht enthalten, aber laut Abschnitt 4 ('Ressourcen-Cap: maximal das Dreifache der Lagerkapazität') hier zu konfigurieren statt im Code.",
+    "resource_cap_multiplier": 3,
+    "storage_baseline_from_town_hall": true,
+    "storage_baseline_note": "Auch ohne gebautes Lager hat ein Spieler eine Grundkapazität in Höhe der base_capacity des jeweiligen Lagers (innewohnende Rathaus-Lagerung). Gebaute Lager addieren sich dazu."
+  },
+
+  "daily_rewards": {
+    "description": "Tägliche Login-Belohnung mit Streak (Retention-Primitiv, Roadmap P1). Ein 'Tag' ist ein Europe/Berlin-Kalendertag (konsistent mit Dungeon/Season). Pro Tag genau einmal abholbar. Aufeinanderfolgende Tage erhöhen den Streak; ein ausgelassener Tag setzt ihn zurück. Die Leiter (ladder) ist 7 Tage lang und wiederholt sich; der Streak-Tag bestimmt die Leiter-Stufe ((streak-1) mod 7). Ressourcen werden auf den Lager-Cap gekappt (wie Loot/Dungeon); Gems/Goldbarren sind ungekappt. Goldbarren am Streak-Höhepunkt machen Premium-Währung VERDIENBAR (fair statt P2W).",
+    "scale_resources_with_town_hall": true,
+    "scale_note": "Ressourcen-Beträge werden mit dem Rathaus-Level multipliziert, damit sie auch spät relevant bleiben (CoC skaliert Daily-Rewards ebenso). Gems/Goldbarren werden NICHT skaliert.",
+    "ladder": [
+      { "day": 1, "wood": 500, "stone": 300, "gold": 0, "gems": 0, "gold_bars": 0, "label": "Tag 1" },
+      { "day": 2, "wood": 700, "stone": 500, "gold": 0, "gems": 1, "gold_bars": 0, "label": "Tag 2" },
+      { "day": 3, "wood": 900, "stone": 700, "gold": 300, "gems": 1, "gold_bars": 0, "label": "Tag 3" },
+      { "day": 4, "wood": 1200, "stone": 900, "gold": 500, "gems": 2, "gold_bars": 0, "label": "Tag 4" },
+      { "day": 5, "wood": 1500, "stone": 1200, "gold": 800, "gems": 3, "gold_bars": 0, "label": "Tag 5" },
+      { "day": 6, "wood": 2000, "stone": 1600, "gold": 1200, "gems": 4, "gold_bars": 0, "label": "Tag 6" },
+      { "day": 7, "wood": 3000, "stone": 2500, "gold": 2000, "gems": 8, "gold_bars": 10, "label": "Tag 7 — Bonus!" }
+    ]
+  },
+
+  "achievements": {
+    "description": "Achievements (Roadmap P2, Retention/Ziele). Jedes Achievement hat eine Metrik (live aus dem Spielstand berechnet) und gestaffelte Stufen mit Belohnung. Stufen werden abgeholt (claim), sobald die Schwelle erreicht ist; höhere Stufen geben verdienbare GOLDBARREN (faire Premium-Währung statt P2W). Metriken: trophies | town_hall_level | battles_won | longest_daily_streak | dungeons_cleared | clan_member | buildings_count. Gems/Goldbarren sind ungekappt.",
+    "definitions": [
+      {
+        "id": "trophy_hunter", "name": "Trophäenjäger", "icon": "🏆", "metric": "trophies",
+        "description": "Sammle Trophäen in PvP-Kämpfen.",
+        "tiers": [
+          { "threshold": 100, "gems": 2, "gold_bars": 0 },
+          { "threshold": 500, "gems": 5, "gold_bars": 0 },
+          { "threshold": 1000, "gems": 0, "gold_bars": 10 },
+          { "threshold": 2000, "gems": 0, "gold_bars": 25 }
+        ]
+      },
+      {
+        "id": "master_builder", "name": "Baumeister", "icon": "🏛️", "metric": "town_hall_level",
+        "description": "Werte dein Rathaus auf.",
+        "tiers": [
+          { "threshold": 3, "gems": 3, "gold_bars": 0 },
+          { "threshold": 5, "gems": 8, "gold_bars": 0 },
+          { "threshold": 7, "gems": 0, "gold_bars": 15 },
+          { "threshold": 10, "gems": 0, "gold_bars": 40 }
+        ]
+      },
+      {
+        "id": "conqueror", "name": "Eroberer", "icon": "⚔️", "metric": "battles_won",
+        "description": "Gewinne PvP-Angriffe.",
+        "tiers": [
+          { "threshold": 1, "gems": 2, "gold_bars": 0 },
+          { "threshold": 10, "gems": 6, "gold_bars": 0 },
+          { "threshold": 50, "gems": 0, "gold_bars": 15 },
+          { "threshold": 200, "gems": 0, "gold_bars": 50 }
+        ]
+      },
+      {
+        "id": "devoted", "name": "Treuer Häuptling", "icon": "🔥", "metric": "longest_daily_streak",
+        "description": "Halte deinen täglichen Login-Streak.",
+        "tiers": [
+          { "threshold": 3, "gems": 3, "gold_bars": 0 },
+          { "threshold": 7, "gems": 10, "gold_bars": 0 },
+          { "threshold": 14, "gems": 0, "gold_bars": 15 },
+          { "threshold": 30, "gems": 0, "gold_bars": 40 }
+        ]
+      },
+      {
+        "id": "dungeon_delver", "name": "Dungeon-Bezwinger", "icon": "🗝️", "metric": "dungeons_cleared",
+        "description": "Schließe Dungeon-Läufe siegreich ab.",
+        "tiers": [
+          { "threshold": 1, "gems": 3, "gold_bars": 0 },
+          { "threshold": 5, "gems": 10, "gold_bars": 0 },
+          { "threshold": 20, "gems": 0, "gold_bars": 30 }
+        ]
+      },
+      {
+        "id": "clan_loyalist", "name": "Clan-Mitglied", "icon": "🏰", "metric": "clan_member",
+        "description": "Tritt einem Clan bei.",
+        "tiers": [
+          { "threshold": 1, "gems": 5, "gold_bars": 0 }
+        ]
+      },
+      {
+        "id": "architect", "name": "Architekt", "icon": "🧱", "metric": "buildings_count",
+        "description": "Errichte Gebäude in deinem Dorf.",
+        "tiers": [
+          { "threshold": 5, "gems": 2, "gold_bars": 0 },
+          { "threshold": 10, "gems": 5, "gold_bars": 0 },
+          { "threshold": 20, "gems": 0, "gold_bars": 12 }
+        ]
+      }
+    ]
+  },
+
+  "unit_research": {
+    "description": "Truppen-Level-Forschung im Forschungslabor (Roadmap P3). Max. eine Forschung gleichzeitig. Kosten skalieren mit dem Ziel-Level. HP/DPS-Bonus greift in jedem Kampf (PvP + Dungeon).",
+    "max_level": 10,
+    "hp_bonus_per_level_percent": 8,
+    "dps_bonus_per_level_percent": 7,
+    "requires_building": "research_lab",
+    "level_costs": [
+      { "to_level": 2, "gold": 1000,  "minutes": 60   },
+      { "to_level": 3, "gold": 2500,  "minutes": 120  },
+      { "to_level": 4, "gold": 5000,  "minutes": 240  },
+      { "to_level": 5, "gold": 9000,  "minutes": 360  },
+      { "to_level": 6, "gold": 15000, "minutes": 600  },
+      { "to_level": 7, "gold": 25000, "minutes": 900  },
+      { "to_level": 8, "gold": 40000, "minutes": 1440 },
+      { "to_level": 9, "gold": 60000, "minutes": 2160 },
+      { "to_level": 10,"gold": 90000, "minutes": 3000 }
+    ]
+  },
+
+  "unit_target_priorities": {
+    "description": "Ziel-Prioritäten der Einheiten (Roadmap P5). Fehlt ein Eintrag → 'nearest' (nächstes Gebäude). Priorität gilt nur, wenn noch Gebäude der bevorzugten Kategorie leben; sonst Fallback auf nächstes Gebäude.",
+    "building_categories": {
+      "defense":  ["watchtower", "cannon"],
+      "resource": ["lumber_camp", "quarry", "gold_mine", "storage_wood", "storage_stone", "storage_gold"],
+      "wall":     ["wall"]
+    },
+    "unit_priorities": {
+      "_note": "Gemeinsame + Fraktions-exklusive Einheitstypen. 'nearest' = Standard (kein Eintrag nötig).",
+      "knight":       "defense",
+      "shieldbearer": "defense",
+      "siege_knight": "defense",
+      "stone_giant":  "defense",
+      "berserker":    "resource",
+      "blade_dancer": "resource",
+      "battering_ram":"wall"
+    }
+  },
+
+  "heroes": {
+    "description": "Helden-System (Roadmap P6). Ein Held je Fraktion, persistent (überlebt Kämpfe), regeneriert sich nach Einsatz. Benötigt Heldenhalle (TH5). Max. Level 10; HP/DPS steigen je Level. Regenerationszeit nach Einsatz = regen_minutes_per_level × Helden-Level.",
+    "max_level": 10,
+    "hp_bonus_per_level_percent": 6,
+    "dps_bonus_per_level_percent": 5,
+    "regen_minutes_per_level": 10,
+    "requires_building": "hero_hall",
+    "level_costs": [
+      { "to_level": 2,  "gold": 2000,  "minutes": 120  },
+      { "to_level": 3,  "gold": 5000,  "minutes": 240  },
+      { "to_level": 4,  "gold": 9000,  "minutes": 480  },
+      { "to_level": 5,  "gold": 15000, "minutes": 720  },
+      { "to_level": 6,  "gold": 24000, "minutes": 1080 },
+      { "to_level": 7,  "gold": 36000, "minutes": 1440 },
+      { "to_level": 8,  "gold": 52000, "minutes": 2160 },
+      { "to_level": 9,  "gold": 72000, "minutes": 2880 },
+      { "to_level": 10, "gold": 100000,"minutes": 4320 }
+    ],
+    "faction_heroes": {
+      "humans":     { "id": "king_arthur",   "display_name": "König Artus",     "housing_space": 5, "base_hp": 500, "base_dps": 40, "speed": "medium", "ability": "Königsbefehl: Nahestehende verbündete Einheiten erhalten 10% mehr Schaden (passiv)." },
+      "fishfolk":   { "id": "sea_queen",     "display_name": "Meereskönigin",   "housing_space": 5, "base_hp": 350, "base_dps": 50, "range_tiles": 5, "speed": "medium", "ability": "Gezeitenwelle: Erste Fähigkeit verlangsamt Verteidigungsgebäude um 20% (passiv)." },
+      "giants":     { "id": "mountain_lord", "display_name": "Bergfürst",       "housing_space": 8, "base_hp": 800, "base_dps": 35, "speed": "very_slow", "ability": "Erdbeben: Erschüttert nahe Mauern und Verteidigungsgebäude beim Landen (passiv)." },
+      "dwarves":    { "id": "forge_master",  "display_name": "Schmiedemeister",  "housing_space": 5, "base_hp": 450, "base_dps": 38, "speed": "slow",    "ability": "Runenschild: Absorbiert beim Einsatz einmalig 200 Schaden (passiv)." },
+      "elves":      { "id": "sylvan_queen",  "display_name": "Waldkönigin",      "housing_space": 5, "base_hp": 320, "base_dps": 52, "range_tiles": 6, "speed": "fast", "ability": "Naturpfeil: Schüsse verlangsamen getroffene Gebäude kurz (passiv)." },
+      "undead":     { "id": "lich_lord",     "display_name": "Lich-Fürst",       "housing_space": 6, "base_hp": 380, "base_dps": 48, "range_tiles": 5, "splash_damage": true, "speed": "slow", "ability": "Nekromantie: Belebt gefallene Einheiten als Skelette kurz wieder (passiv)." },
+      "orcs":       { "id": "warchief",      "display_name": "Kriegsanführer",   "housing_space": 6, "base_hp": 550, "base_dps": 45, "speed": "medium", "ability": "Kriegsschrei: Erhöht eigenen Schaden um 25% wenn HP unter 50% (passiv)." },
+      "dragonfolk": { "id": "dragon_lord",   "display_name": "Drachenlord",      "housing_space": 7, "base_hp": 480, "base_dps": 44, "range_tiles": 5, "splash_damage": true, "speed": "medium", "ability": "Drachenatem: Flächenschaden + Feuerschaden über Zeit (passiv)." }
+    }
+  },
+
+  "season_pass": {
+    "description": "Season-/Battle-Pass (Roadmap P7, Retention/Wiederkehr-Rhythmus). An die seasons-Tabelle gekoppelt (eine Saison = clan.season_reset_weeks). Spieler sammeln Pass-XP durchs Spielen (PvP-Sieg, Dungeon-Sieg, Quest abholen). Jede Stufe (tier) hat eine GRATIS-Belohnung (immer abholbar bei Erreichen) und eine PREMIUM-Belohnung (nur nach Freischaltung). Premium ist mit GEMS freischaltbar — verdienbar (Achievements/Quests/Daily), also FAIR statt P2W. Belohnungen werden manuell abgeholt (claim). Ressourcen werden auf den Lager-Cap gekappt (wie Loot/Dungeon/Daily); Gems/Goldbarren ungekappt. xp_required ist die KUMULATIVE XP, ab der die Stufe erreicht ist (Stufe 1 bei 0 = sofort).",
+    "premium_cost_gems": 150,
+    "xp_per_action": {
+      "battle_win": 50,
+      "dungeon_clear": 80,
+      "quest_claim": 30
+    },
+    "tiers": [
+      { "tier": 1,  "xp_required": 0,    "free": { "gold": 500 },                 "premium": { "gems": 5 } },
+      { "tier": 2,  "xp_required": 100,  "free": { "wood": 1000, "stone": 800 },  "premium": { "gold": 1500 } },
+      { "tier": 3,  "xp_required": 250,  "free": { "gems": 2 },                   "premium": { "gold": 2000 } },
+      { "tier": 4,  "xp_required": 450,  "free": { "gold": 1000 },                "premium": { "gems": 8 } },
+      { "tier": 5,  "xp_required": 700,  "free": { "wood": 2000, "stone": 1500 },"premium": { "gold_bars": 5 } },
+      { "tier": 6,  "xp_required": 1000, "free": { "gems": 3 },                   "premium": { "gold": 3000 } },
+      { "tier": 7,  "xp_required": 1350, "free": { "gold": 1500 },                "premium": { "gems": 12 } },
+      { "tier": 8,  "xp_required": 1750, "free": { "wood": 3000, "stone": 2500 },"premium": { "gold_bars": 8 } },
+      { "tier": 9,  "xp_required": 2200, "free": { "gems": 4 },                   "premium": { "gold": 5000 } },
+      { "tier": 10, "xp_required": 2700, "free": { "gold": 2500 },               "premium": { "gold_bars": 12 } },
+      { "tier": 11, "xp_required": 3300, "free": { "wood": 5000, "stone": 4000 },"premium": { "gems": 20 } },
+      { "tier": 12, "xp_required": 4000, "free": { "gems": 5 },                   "premium": { "gold_bars": 25 } }
+    ]
+  },
+
+  "daily_quests": {
+    "description": "Tägliche Mini-Ziele (Roadmap P4). Resetten täglich um Mitternacht UTC. Jeder Spieler sieht dieselben Quests. Fortschritt wird bei der jeweiligen Aktion inkrementiert (Angriff, Upgrade, Training, Forschung). Belohnungen werden manuell eingesammelt (Claim).",
+    "definitions": [
+      {
+        "id": "attack_3",
+        "name": "Angreifer",
+        "description": "Starte 3 Kämpfe (PvP oder Dungeon).",
+        "icon": "⚔️",
+        "type": "attacks",
+        "target": 3,
+        "reward_gold": 500,
+        "reward_gems": 0
+      },
+      {
+        "id": "upgrade_1",
+        "name": "Baumeister",
+        "description": "Starte 1 Gebäude-Upgrade.",
+        "icon": "🏗️",
+        "type": "upgrades",
+        "target": 1,
+        "reward_gold": 300,
+        "reward_gems": 0
+      },
+      {
+        "id": "train_10",
+        "name": "Ausbilder",
+        "description": "Trainiere 10 Truppen.",
+        "icon": "🪖",
+        "type": "troops_trained",
+        "target": 10,
+        "reward_gold": 200,
+        "reward_gems": 1
+      },
+      {
+        "id": "research_start",
+        "name": "Wissenschaftler",
+        "description": "Starte eine Forschung im Labor.",
+        "icon": "🔬",
+        "type": "researches",
+        "target": 1,
+        "reward_gold": 0,
+        "reward_gems": 2
+      }
+    ]
+  },
+
+  "onboarding": {
+    "description": "Quest-geführtes Onboarding für den ersten Spielstart (Roadmap P8). Eine feste, geordnete Schrittfolge; jeder Schritt schließt ab, sobald sein Live-Metrik-Wert (aus dem Spielstand, keine Event-Instrumentierung) das Ziel erreicht. Schritte werden STRIKT der Reihe nach abgeholt; jeder gibt eine einmalige Starthilfe-Belohnung (Ressourcen werden auf das Lager-Cap gekappt, Gems/Goldbarren ungekappt). Metriken: none (sofort) | buildings_count | army_size | battles_won | clan_member.",
+    "steps": [
+      {
+        "id": "welcome",
+        "title": "Willkommen in Village Wars!",
+        "icon": "👋",
+        "description": "Dein Dorf wartet. Hol dir dein Starterpaket ab und leg los.",
+        "metric": "none",
+        "target": 0,
+        "reward": { "wood": 1000, "stone": 500, "gold": 500, "gems": 5 }
+      },
+      {
+        "id": "build_first",
+        "title": "Errichte dein erstes Gebäude",
+        "icon": "🧱",
+        "description": "Tippe auf eine freie Fläche und platziere ein Gebäude.",
+        "metric": "buildings_count",
+        "target": 2,
+        "reward": { "gold": 500 }
+      },
+      {
+        "id": "train_army",
+        "title": "Bilde deine erste Armee aus",
+        "icon": "⚔️",
+        "description": "Trainiere mindestens 5 Truppen in der Kaserne.",
+        "metric": "army_size",
+        "target": 5,
+        "reward": { "gold": 500, "gems": 2 }
+      },
+      {
+        "id": "first_battle",
+        "title": "Gewinne deinen ersten Kampf",
+        "icon": "🏆",
+        "description": "Greife ein Dorf an und siege.",
+        "metric": "battles_won",
+        "target": 1,
+        "reward": { "gold": 1000, "gems": 5 }
+      },
+      {
+        "id": "join_clan",
+        "title": "Tritt einem Clan bei",
+        "icon": "🏰",
+        "description": "Finde Verbündete — gemeinsam seid ihr stärker.",
+        "metric": "clan_member",
+        "target": 1,
+        "reward": { "gems": 10 }
+      }
+    ]
+  },
+
+  "events": {
+    "description": "Limited-Time-Events (Roadmap P7-Folge). Zeitlich begrenzte Event-Fenster (starts_at/ends_at, ISO-UTC) mit besonderen Aufgaben und großzügigen, VERDIENBAREN Belohnungen (auch Goldbarren = faire Premium-Währung). Aufgaben-Fortschritt wird LIVE aus dem Spielstand SEIT Event-Start gezählt (keine Event-Instrumentierung): battles_won (gewonnene Solo-Angriffe seit starts_at) | dungeons_cleared (gewonnene Dungeon-Läufe seit starts_at). Jede Aufgabe ist einmalig abholbar, NUR solange das Event aktiv ist. Ressourcen-Belohnung wird auf das Lager-Cap gekappt, Gems/Goldbarren ungekappt. Weitere/rotierende Events werden hier ergänzt; das jeweils aktive Fenster bestimmt die Anzeige.",
+    "definitions": [
+      {
+        "id": "summer_clash_2026",
+        "name": "Sommer-Ansturm",
+        "icon": "🔥",
+        "description": "Schlag im Sommer zu! Sammle Event-Belohnungen, solange das Event läuft.",
+        "starts_at": "2026-06-01T00:00:00Z",
+        "ends_at": "2026-09-01T00:00:00Z",
+        "challenges": [
+          { "id": "win5",     "name": "Angriffslustig", "description": "Gewinne 5 Angriffe.",  "metric": "battles_won",      "target": 5,  "reward": { "gold": 2000, "gems": 5 } },
+          { "id": "win15",    "name": "Eroberer",       "description": "Gewinne 15 Angriffe.", "metric": "battles_won",      "target": 15, "reward": { "gems": 12 } },
+          { "id": "win30",    "name": "Kriegsherr",     "description": "Gewinne 30 Angriffe.", "metric": "battles_won",      "target": 30, "reward": { "gold_bars": 20 } },
+          { "id": "dungeon3", "name": "Tiefgänger",     "description": "Schließe 3 Dungeons ab.", "metric": "dungeons_cleared", "target": 3,  "reward": { "gems": 10 } }
+        ]
+      }
+    ]
+  },
+
+  "pvp": {
+    "match_duration_seconds": 300,
+    "win_destruction_threshold_pct": 50,
+    "win_destruction_note": "Solo-PvP ist asymmetrisch (Angreifer vs. passive Verteidigung). Der Angreifer gewinnt, wenn er mindestens diesen Prozentsatz des Dorfes zerstört ODER das Rathaus fällt. Ansonsten gewinnt der Verteidiger. Gleichstand (Unentschieden) ist für künftige symmetrische Clan-Duelle reserviert.",
+    "loot_on_victory": { "wood_percentage": 20, "stone_percentage": 20, "gold_percentage": 0, "gems_percentage": 0 },
+    "loot_note": "Nur Holz und Stein sind plünderbar. Gold und Edelsteine sind explizit ausgenommen, damit Dungeons (PvE) ihren eigenen Sinn als alleinige Gold/Edelstein-Quelle behalten.",
+    "trophy_change": {
+      "win_base": 28,
+      "loss_base": -22,
+      "win_min": 18,
+      "win_max": 35,
+      "loss_min_magnitude": 14,
+      "loss_max_magnitude": 30,
+      "diff_scale_trophies": 400,
+      "note": "Elo-ähnliche Feinjustierung nach Trophäen-Differenz (Verteidiger - Angreifer), skaliert über diff_scale_trophies und auf die min/max-Grenzen geklemmt. Sieg gegen Stärkere bis +35, gegen Schwächere bis +18; Niederlage gegen Stärkere -14, gegen Schwächere -30 (Abschnitt 8)."
+    },
+    "matchmaking": {
+      "online_only": true,
+      "base_tolerance_trophies": 100,
+      "expansions": [
+        { "after_seconds": 30, "tolerance_trophies": 200 },
+        { "after_seconds": 60, "tolerance_trophies": 500 }
+      ],
+      "bot_after_seconds": 90,
+      "tick_seconds": 1,
+      "note": "Toleranz startet bei ±100 Trophäen, erweitert sich nach 30s auf ±200 und nach 60s auf ±500. Es werden ausschließlich aktuell verbundene (Online-)Gegner gematcht. Findet sich nach 90s keiner, wird ein Bot mit gespeichertem Layout erstellt (Abschnitt 8)."
+    },
+    "modes": ["solo_1v1", "clan_vs_clan"]
+  },
+
+  "combat": {
+    "description": "Server-autoritative Echtzeit-Kampfsimulation (Phase 3). Diese Werte ergänzen die Spec (Abschnitt 8 nennt sie nicht explizit als Zahlen) und gehören laut eiserner Regel in die Config statt in den Code. Fraktions-Modifikatoren (unit_hp/_damage/_speed, attack_speed, building_hp, wall_hp, melee/ranged) werden zusätzlich auf diese Basiswerte angewandt.",
+    "tick_rate_per_second": 5,
+    "unit_speed_tiles_per_second": {
+      "very_slow": 0.6,
+      "slow": 0.9,
+      "medium": 1.3,
+      "fast": 1.8,
+      "very_fast": 2.4
+    },
+    "melee_range_tiles": 1.0,
+    "deploy_note": "Einheiten ohne range_tiles gelten als Nahkampf und nutzen melee_range_tiles. Einheiten mit range_tiles feuern aus dieser Distanz.",
+    "splash_radius_tiles": 2.0,
+    "healer_range_tiles": 3.0,
+    "building_hp": {
+      "default": 500,
+      "town_hall": 2000,
+      "lumber_camp": 400,
+      "quarry": 400,
+      "gold_mine": 450,
+      "storage_wood": 600,
+      "storage_stone": 600,
+      "storage_gold": 700,
+      "barracks": 500,
+      "clan_castle": 1200,
+      "_note": "Basis-HP auf Stufe 1. Verteidigungsgebäude (Wachturm/Kanone/Kanalschleuse) und Mauern nutzen ihre eigene base_hp aus buildings_common; alle übrigen Typen diese Werte bzw. default."
+    },
+    "building_hp_growth_per_level_percent": 12,
+    "defense_dps_growth_per_level_percent": 10,
+    "defender_aggro_radius_tiles": 5,
+    "defender_aggro_note": "Clan-Burg-Verteidiger (Phase 4): Angreifer-Einheiten greifen einen stationierten Verteidiger an, sobald er innerhalb dieser Reichweite ist (sonst zielen sie auf Gebäude). Verteidiger verfolgen den nächsten Angreifer und sterben, wenn ihre HP 0 erreichen — gefallene Verteidiger werden aus clan_castle_defenders abgezogen.",
+    "destruction_note": "Zerstörungs-Prozent = zerstörte Gebäude-HP / Gesamt-Gebäude-HP × 100 (gefloored). Kein Gebäudetyp wird gesondert gewichtet.",
+    "deferred_unit_specials_note": "Numerisch in der Config hinterlegte Spezialfähigkeiten werden simuliert (Heiler heal_per_second, splash_damage via splash_radius_tiles). Rein textuelle Einheiten-Spezialfähigkeiten (Skelett-Regeneration, Geist-Dodge, Berserker-Rage, Netzwerfer-Slow, Hauptmann-Moral-Aura, Runenschmied-HP-Buff, Steinriese-Doppelschaden-gegen-Mauern) sind bewusst noch NICHT modelliert (keine erfundenen Zahlen) und werden ergänzt, sobald ihre Werte hier definiert sind."
+  },
+
+  "dungeon": {
+    "description": "PvE-Dungeon (Phase 5, Abschnitt 9). Öffnet wöchentlich Sa 05:00 Europe/Berlin, schließt So 00:00. 5 NPC-Wellen + Endboss. Schwierigkeitsstufen (difficulties) skalieren Gegnerstärke UND Belohnung. Wellen werden pro Lauf ZUFÄLLIG geseedet generiert (wave_generation) — jede Welle anders, die Zusammensetzung ist vor dem Kampf verborgen (Spannung). Die Belohnungs-Stufen (reward_tiers) entsprechen der Tabelle aus Abschnitt 9 (Normal = Baseline) und werden mit difficulty.reward_multiplier multipliziert.",
+    "schedule": {
+      "opens": "Saturday 05:00 CET",
+      "closes": "Sunday 00:00 CET",
+      "timezone": "Europe/Berlin",
+      "open_weekday": 6,
+      "open_hour": 5,
+      "close_weekday": 0,
+      "close_hour": 0,
+      "duration_hours": 19,
+      "frequency": "weekly"
+    },
+    "structure": { "waves": 5, "final_boss": true },
+    "dev_always_open": false,
+    "dev_always_open_note": "Nur für lokale Tests: true erzwingt ein dauerhaft offenes Dungeon-Fenster (umgeht den Wochenend-Zeitplan).",
+    "one_run_per_week": true,
+    "npc_faction": "humans",
+    "max_wave_seconds": 120,
+    "npc_faction_note": "NPC-Gegner nutzen die Basis-Kampfwerte der genannten Fraktion (Menschen = Baseline) aus units_common, skaliert über Wellen-/Difficulty-Multiplikatoren.",
+    "default_difficulty": "normal",
+    "difficulties": [
+      { "id": "easy", "display_name": "Leicht", "enemy_strength_multiplier": 0.75, "wave_budget_multiplier": 0.7, "reward_multiplier": 0.6 },
+      { "id": "normal", "display_name": "Normal", "enemy_strength_multiplier": 1.0, "wave_budget_multiplier": 1.0, "reward_multiplier": 1.0 },
+      { "id": "hard", "display_name": "Schwer", "enemy_strength_multiplier": 1.35, "wave_budget_multiplier": 1.3, "reward_multiplier": 1.6 },
+      { "id": "nightmare", "display_name": "Albtraum", "enemy_strength_multiplier": 1.8, "wave_budget_multiplier": 1.7, "reward_multiplier": 2.4 }
+    ],
+    "difficulties_note": "Bei Start wählbar. enemy_strength_multiplier skaliert HP+Schaden der Gegner (und des Bosses), wave_budget_multiplier die Gegner-Menge je Welle, reward_multiplier die Gold-/Edelstein-Belohnung. Albtraum = härter, aber deutlich mehr Belohnung.",
+    "wave_generation": {
+      "enemy_pool": [
+        { "unit_type": "militia", "cost": 1 },
+        { "unit_type": "archer", "cost": 1.5 },
+        { "unit_type": "knight", "cost": 3 },
+        { "unit_type": "catapult", "cost": 5 }
+      ],
+      "base_budget": 5,
+      "budget_growth_per_wave": 3.5,
+      "wave_stat_growth_per_wave_percent": 12,
+      "min_enemies_per_wave": 2,
+      "max_enemy_units": 40,
+      "notes": "Pro Lauf wird ein Seed gezogen; jede Welle wird daraus deterministisch generiert (gleicher Seed → gleiche Wellen, anderer Lauf → andere). Budget = (base_budget + budget_growth_per_wave×(Welle−1)) × difficulty.wave_budget_multiplier; daraus werden zufällig Einheiten aus enemy_pool gezogen (nach cost), bis das Budget aufgebraucht ist. Stat-Skalierung der Gegner = (1 + wave_stat_growth×(Welle−1)/100) × difficulty.enemy_strength_multiplier. Die Zusammensetzung ist vor dem Kampf VERBORGEN."
+    },
+    "boss": { "display_name": "Dungeon-Endboss", "unit_type": "knight", "count": 1, "hp_multiplier": 14, "damage_multiplier": 4, "boss_note": "hp_/damage_multiplier werden zusätzlich mit difficulty.enemy_strength_multiplier skaliert." },
+    "replay_capture_interval_ticks": 1,
+    "replay_max_frames": 240,
+    "replay_note": "Der Server zeichnet den Wellen-Kampf deterministisch als Replay (Einheiten-Positionen/HP je Frame) auf und schickt es an den Client, der den Kampf animiert abspielt. capture_interval_ticks = jeder N-te Tick wird aufgezeichnet, max_frames begrenzt die Größe.",
+    "reward_tiers": [
+      { "label": "Wellen 1–2", "min_waves_completed": 1, "requires_boss": false, "gold_min": 50, "gold_max": 100, "gems_min": 0, "gems_max": 0 },
+      { "label": "Wellen 3–4", "min_waves_completed": 3, "requires_boss": false, "gold_min": 100, "gold_max": 200, "gems_min": 1, "gems_max": 2 },
+      { "label": "Alle 5 Wellen", "min_waves_completed": 5, "requires_boss": false, "gold_min": 200, "gold_max": 350, "gems_min": 3, "gems_max": 7 },
+      { "label": "Alle 5 + Boss", "min_waves_completed": 5, "requires_boss": true, "gold_min": 300, "gold_max": 400, "gems_min": 5, "gems_max": 10 }
+    ],
+    "rewards_note": "Belohnung wird bei Run-Ende anhand des höchsten erreichten Tiers vergeben (Abschnitt 9). Keine Goldbarren aus Dungeons — die bleiben exklusiv an Echtgeld-Kauf und Top-5-Clan-Belohnung gebunden."
+  },
+
+  "clan": {
+    "unlock_town_hall_level": 5,
+    "max_members": 50,
+    "tag_length_min": 3,
+    "tag_length_max": 5,
+    "season_reset_weeks": 8,
+    "leaderboard_rewards_bars": {
+      "rank_1": 500,
+      "rank_2": 350,
+      "rank_3": 250,
+      "rank_4": 150,
+      "rank_5": 100
+    },
+    "clan_castle": {
+      "description": "Housing Space (Stellplätze) skaliert mit Clan-Burg-Level. Stärkere Einheiten verbrauchen mehr Stellplätze als schwächere (siehe units[].housing_space).",
+      "levels": [
+        { "level": 1, "housing_space": 10, "wood": 2000, "stone": 1500, "build_time_minutes": 180 },
+        { "level": 2, "housing_space": 15, "wood": 5000, "stone": 3500, "build_time_minutes": 480 },
+        { "level": 3, "housing_space": 20, "wood": 10000, "stone": 7500, "gold": 500, "build_time_minutes": 1440 },
+        { "level": 4, "housing_space": 25, "wood": 18000, "stone": 14000, "gold": 1200, "build_time_minutes": 2880 },
+        { "level": 5, "housing_space": 30, "wood": 30000, "stone": 24000, "gold": 2500, "build_time_minutes": 5760 }
+      ]
+    },
+    "name_length_min": 3,
+    "name_length_max": 50,
+    "profanity_extra_words": ["arsch", "scheisse", "scheiße", "wichser", "hurensohn", "nazi"],
+    "banner_options": {
+      "description": "Baukasten für das Clan-Banner (Form + Farbe + Symbol, kein Bild-Upload, Abschnitt 10).",
+      "shapes": ["shield", "banner", "rounded", "pennant"],
+      "symbols": ["sword", "axe", "skull", "tree", "anchor", "hammer", "crown", "wolf", "dragon", "star"],
+      "colors": ["#c0392b", "#2980b9", "#27ae60", "#8e44ad", "#f0c040", "#e67e22", "#16a085", "#2c3e50", "#ecf0f1", "#000020"]
+    },
+    "war": {
+      "description": "Clan-vs-Clan-Krieg: Summe paralleler 1v1-Duelle, Clan-Punkte = Summe der erzielten Zerstörung (Abschnitt 8).",
+      "min_members_per_clan": 1,
+      "duration_minutes": 60,
+      "queue_tolerance_members": 50,
+      "queue_bot_after_seconds": 120,
+      "attacks_per_member": 2,
+      "win_season_points": 100,
+      "draw_season_points": 40
+    }
+  },
+
+  "leaderboard": {
+    "description": "Ranglisten-Paginierung (Abschnitt 11/14). Solo = dauerhaft kumuliert, Clan = saisonbasiert.",
+    "default_page_size": 50,
+    "max_page_size": 100
+  },
+
+  "buildings_common": {
+    "description": "Gebäude, die JEDE Fraktion bauen kann (Basisgebäude). Fraktionsspezifische Exklusiv-Gebäude stehen unter factions_exclusive_content.",
+    "town_hall": {
+      "display_name": "Rathaus",
+      "unlock_town_hall_level": 1,
+      "max_level": 10,
+      "function": "Bestimmt Dorf-Level, schaltet alle anderen Gebäude/Einheiten progressiv frei."
+    },
+    "lumber_camp": {
+      "display_name": "Holzfällerlager",
+      "unlock_town_hall_level": 1,
+      "max_level": 10,
+      "base_production_per_hour": 200,
+      "production_growth_per_level_percent": 18,
+      "levels": [
+        { "level": 1, "wood_cost": 0, "stone_cost": 0, "build_time_minutes": 0 },
+        { "level": 2, "wood_cost": 300, "stone_cost": 0, "build_time_minutes": 10 },
+        { "level": 3, "wood_cost": 700, "stone_cost": 0, "build_time_minutes": 30 },
+        { "level": 4, "wood_cost": 1500, "stone_cost": 200, "build_time_minutes": 90 },
+        { "level": 5, "wood_cost": 3000, "stone_cost": 500, "build_time_minutes": 240 },
+        { "level": 6, "wood_cost": 6000, "stone_cost": 1200, "build_time_minutes": 600 },
+        { "level": 7, "wood_cost": 11000, "stone_cost": 2500, "build_time_minutes": 1200 },
+        { "level": 8, "wood_cost": 19000, "stone_cost": 4500, "build_time_minutes": 2160 },
+        { "level": 9, "wood_cost": 30000, "stone_cost": 7500, "build_time_minutes": 3600 },
+        { "level": 10, "wood_cost": 45000, "stone_cost": 12000, "build_time_minutes": 5760 }
+      ]
+    },
+    "quarry": {
+      "display_name": "Steinbruch",
+      "unlock_town_hall_level": 1,
+      "max_level": 10,
+      "base_production_per_hour": 150,
+      "production_growth_per_level_percent": 18,
+      "levels": "Analog lumber_camp-Struktur, gleiche Kosten/Zeit-Kurve, Stein statt Holz als Hauptertrag."
+    },
+    "gold_mine": {
+      "display_name": "Goldmine",
+      "unlock_town_hall_level": 3,
+      "max_level": 8,
+      "base_production_per_hour": 25,
+      "production_growth_per_level_percent": 20,
+      "levels": [
+        { "level": 1, "wood_cost": 2000, "stone_cost": 1000, "build_time_minutes": 120 },
+        { "level": 2, "wood_cost": 4000, "stone_cost": 2500, "build_time_minutes": 360 },
+        { "level": 3, "wood_cost": 8000, "stone_cost": 5000, "build_time_minutes": 720 },
+        { "level": 4, "wood_cost": 15000, "stone_cost": 9000, "build_time_minutes": 1440 },
+        { "level": 5, "wood_cost": 25000, "stone_cost": 16000, "build_time_minutes": 2880 },
+        { "level": 6, "wood_cost": 40000, "stone_cost": 26000, "build_time_minutes": 4320 },
+        { "level": 7, "wood_cost": 60000, "stone_cost": 40000, "build_time_minutes": 5760 },
+        { "level": 8, "wood_cost": 85000, "stone_cost": 58000, "build_time_minutes": 7200 }
+      ]
+    },
+    "storage_wood": { "display_name": "Holzlager", "unlock_town_hall_level": 1, "max_level": 10, "base_capacity": 2000, "capacity_growth_per_level_percent": 35, "wood_cost": 250, "stone_cost": 0, "build_time_minutes": 5 },
+    "storage_stone": { "display_name": "Steinlager", "unlock_town_hall_level": 1, "max_level": 10, "base_capacity": 1500, "capacity_growth_per_level_percent": 35, "wood_cost": 0, "stone_cost": 250, "build_time_minutes": 5 },
+    "storage_gold": { "display_name": "Goldtresor", "unlock_town_hall_level": 3, "max_level": 8, "base_capacity": 500, "capacity_growth_per_level_percent": 35, "wood_cost": 1500, "stone_cost": 800, "build_time_minutes": 90 },
+    "wall": {
+      "display_name": "Mauer",
+      "unlock_town_hall_level": 2,
+      "max_level": 10,
+      "base_hp": 300,
+      "hp_growth_per_level_percent": 30,
+      "cost_per_segment_level_1": { "stone": 50 }
+    },
+    "barracks": {
+      "display_name": "Kaserne",
+      "unlock_town_hall_level": 1,
+      "max_level": 6,
+      "function": "Rekrutiert Basis-Einheiten. Fraktionsspezifische Einheiten benötigen teils zusätzliche Spezialgebäude (siehe factions_exclusive_content).",
+      "wood_cost": 400,
+      "stone_cost": 0,
+      "build_time_minutes": 10
+    },
+    "research_lab": {
+      "display_name": "Forschungslabor",
+      "unlock_town_hall_level": 3,
+      "max_level": 5,
+      "function": "Ermöglicht Truppen-Level-Forschung (Roadmap P3). Je höheres Level, desto stärkere Truppen erforschbar.",
+      "base_hp": 600,
+      "wood_cost": 1500,
+      "stone_cost": 1000,
+      "build_time_minutes": 90
+    },
+    "hero_hall": {
+      "display_name": "Heldenhalle",
+      "unlock_town_hall_level": 5,
+      "max_level": 1,
+      "function": "Beherbergt den Helden der Fraktion (Roadmap P6). Nur ein Held je Dorf; Held regeneriert sich nach Einsatz.",
+      "base_hp": 800,
+      "wood_cost": 2500,
+      "stone_cost": 2000,
+      "build_time_minutes": 240
+    },
+    "clan_castle": {
+      "display_name": "Clan-Burg",
+      "unlock_town_hall_level": 5,
+      "see": "clan.clan_castle für Level-Werte"
+    },
+    "watchtower": {
+      "display_name": "Wachturm",
+      "unlock_town_hall_level": 2,
+      "max_level": 8,
+      "type": "defense",
+      "base_damage_per_second": 12,
+      "base_hp": 400,
+      "range_tiles": 6,
+      "wood_cost": 800,
+      "stone_cost": 400,
+      "build_time_minutes": 45
+    },
+    "cannon": {
+      "display_name": "Kanone",
+      "unlock_town_hall_level": 4,
+      "max_level": 8,
+      "type": "defense",
+      "base_damage_per_second": 22,
+      "base_hp": 500,
+      "range_tiles": 7,
+      "wood_cost": 2500,
+      "stone_cost": 1500,
+      "build_time_minutes": 180
+    }
+  },
+
+  "units_common": {
+    "description": "Basis-Einheiten, die jede Fraktion rekrutieren kann. housing_space = Stellplatz-Verbrauch in Clan-Burg/Armeelager (stärkere Einheiten verbrauchen mehr).",
+    "militia": {
+      "display_name": "Milizionär",
+      "unlock_town_hall_level": 1,
+      "role": "melee_basic",
+      "housing_space": 1,
+      "hp": 60,
+      "damage_per_second": 8,
+      "speed": "medium",
+      "cost": { "wood": 30 },
+      "train_time_seconds": 20
+    },
+    "archer": {
+      "display_name": "Bogenschütze",
+      "unlock_town_hall_level": 2,
+      "role": "ranged_basic",
+      "housing_space": 1,
+      "hp": 40,
+      "damage_per_second": 14,
+      "range_tiles": 4,
+      "speed": "medium",
+      "cost": { "wood": 50 },
+      "train_time_seconds": 30
+    },
+    "knight": {
+      "display_name": "Ritter",
+      "unlock_town_hall_level": 4,
+      "role": "melee_tank",
+      "housing_space": 3,
+      "hp": 180,
+      "damage_per_second": 16,
+      "speed": "slow",
+      "cost": { "wood": 120, "stone": 40 },
+      "train_time_seconds": 90
+    },
+    "catapult": {
+      "display_name": "Katapult",
+      "unlock_town_hall_level": 6,
+      "role": "siege_ranged",
+      "housing_space": 6,
+      "hp": 120,
+      "damage_per_second": 35,
+      "range_tiles": 8,
+      "splash_damage": true,
+      "speed": "very_slow",
+      "cost": { "wood": 300, "stone": 150 },
+      "train_time_seconds": 240
+    },
+    "healer": {
+      "display_name": "Heiler",
+      "unlock_town_hall_level": 7,
+      "role": "support",
+      "housing_space": 4,
+      "hp": 70,
+      "heal_per_second": 12,
+      "speed": "medium",
+      "cost": { "wood": 200, "gold": 20 },
+      "train_time_seconds": 180
+    }
+  },
+
+  "factions_exclusive_content": {
+    "humans": {
+      "exclusive_buildings": [
+        {
+          "id": "trade_post",
+          "display_name": "Handelsposten",
+          "unlock_town_hall_level": 5,
+          "function": "Tauscht Holz/Stein im festen Kurs gegen die jeweils andere Ressource (Notfall-Liquidität).",
+          "wood_cost": 4000,
+          "stone_cost": 3000,
+          "build_time_minutes": 480
+        }
+      ],
+      "exclusive_units": [
+        { "id": "spearman", "display_name": "Speerkämpfer", "unlock_town_hall_level": 2, "role": "melee_basic", "housing_space": 1, "hp": 75, "damage_per_second": 9, "speed": "medium", "special_trait": "Bonus gegen Kavallerie (Anti-Reiter).", "cost": { "wood": 35 }, "train_time_seconds": 25 },
+        { "id": "axeman", "display_name": "Axtkämpfer", "unlock_town_hall_level": 3, "role": "melee_aggressive", "housing_space": 2, "hp": 95, "damage_per_second": 16, "speed": "medium", "cost": { "wood": 60 }, "train_time_seconds": 40 },
+        { "id": "shieldbearer", "display_name": "Schildträger", "unlock_town_hall_level": 3, "role": "melee_tank", "housing_space": 2, "hp": 150, "damage_per_second": 7, "speed": "slow", "special_trait": "Hohe HP, fängt Schaden für dahinterstehende Einheiten ab (Frontlinie).", "cost": { "wood": 70, "stone": 20 }, "train_time_seconds": 60 },
+        { "id": "paladin", "display_name": "Paladin", "unlock_town_hall_level": 6, "role": "melee_elite", "housing_space": 4, "hp": 220, "damage_per_second": 20, "speed": "medium", "special_ability": "Heiliger Schlag: kurzer Schadensbonus gegen untote/dämonische Gegner.", "cost": { "wood": 200, "stone": 80, "gold": 20 }, "train_time_seconds": 150 },
+        { "id": "kingsguard", "display_name": "Königsgarde", "unlock_town_hall_level": 7, "role": "melee_elite", "housing_space": 5, "hp": 280, "damage_per_second": 24, "speed": "medium", "cost": { "wood": 260, "stone": 100, "gold": 30 }, "train_time_seconds": 170 },
+        { "id": "champion", "display_name": "Champion", "unlock_town_hall_level": 9, "role": "melee_elite", "housing_space": 6, "hp": 360, "damage_per_second": 30, "speed": "medium", "cost": { "wood": 350, "stone": 150, "gold": 60 }, "train_time_seconds": 220 },
+
+        { "id": "crossbowman", "display_name": "Armbrustschütze", "unlock_town_hall_level": 3, "role": "ranged_basic", "housing_space": 1, "hp": 45, "damage_per_second": 18, "range_tiles": 4, "speed": "medium", "cost": { "wood": 70 }, "train_time_seconds": 45 },
+        { "id": "longbowman", "display_name": "Langbogenschütze", "unlock_town_hall_level": 4, "role": "ranged_marksman", "housing_space": 2, "hp": 55, "damage_per_second": 20, "range_tiles": 6, "speed": "medium", "cost": { "wood": 100 }, "train_time_seconds": 70 },
+        { "id": "gunner", "display_name": "Kanonier", "unlock_town_hall_level": 6, "role": "ranged_heavy", "housing_space": 3, "hp": 70, "damage_per_second": 28, "range_tiles": 5, "speed": "slow", "cost": { "wood": 180, "gold": 20 }, "train_time_seconds": 120 },
+        { "id": "siege_archer", "display_name": "Belagerungsschütze", "unlock_town_hall_level": 7, "role": "ranged_siege", "housing_space": 4, "hp": 90, "damage_per_second": 24, "range_tiles": 7, "speed": "slow", "cost": { "wood": 220, "stone": 60 }, "train_time_seconds": 150 },
+        { "id": "fire_thrower", "display_name": "Feuerwerfer", "unlock_town_hall_level": 6, "role": "ranged_splash", "housing_space": 3, "hp": 80, "damage_per_second": 22, "range_tiles": 4, "splash_damage": true, "speed": "medium", "special_ability": "Feuerwurf: Flächenschaden an der getroffenen Stelle.", "cost": { "wood": 200, "gold": 20 }, "train_time_seconds": 140 },
+        { "id": "rapid_cannon", "display_name": "Schnellfeuerkanone", "unlock_town_hall_level": 9, "role": "ranged_splash", "housing_space": 5, "hp": 120, "damage_per_second": 45, "range_tiles": 6, "splash_damage": true, "speed": "slow", "cost": { "wood": 320, "stone": 160, "gold": 40 }, "train_time_seconds": 200 },
+
+        { "id": "light_cavalry", "display_name": "Leichte Kavallerie", "unlock_town_hall_level": 4, "role": "cavalry", "housing_space": 3, "hp": 140, "damage_per_second": 16, "speed": "fast", "cost": { "wood": 130, "stone": 30 }, "train_time_seconds": 90 },
+        { "id": "heavy_cavalry", "display_name": "Schwere Kavallerie", "unlock_town_hall_level": 6, "role": "cavalry_heavy", "housing_space": 4, "hp": 220, "damage_per_second": 22, "speed": "fast", "cost": { "wood": 220, "stone": 80 }, "train_time_seconds": 150 },
+        { "id": "lancer", "display_name": "Lanzenreiter", "unlock_town_hall_level": 6, "role": "cavalry_lance", "housing_space": 4, "hp": 180, "damage_per_second": 26, "speed": "fast", "special_trait": "Ansturm: erster Treffer nach Bewegung verursacht erhöhten Schaden.", "cost": { "wood": 220, "stone": 70 }, "train_time_seconds": 150 },
+        { "id": "order_knight", "display_name": "Ritter des Ordens", "unlock_town_hall_level": 8, "role": "cavalry_elite", "housing_space": 5, "hp": 280, "damage_per_second": 28, "speed": "medium", "cost": { "wood": 300, "stone": 120, "gold": 40 }, "train_time_seconds": 180 },
+        { "id": "siege_knight", "display_name": "Belagerungsritter", "unlock_town_hall_level": 9, "role": "cavalry_siege", "housing_space": 6, "hp": 340, "damage_per_second": 30, "speed": "slow", "cost": { "wood": 360, "stone": 160, "gold": 60 }, "train_time_seconds": 220 },
+
+        { "id": "battering_ram", "display_name": "Rammbock", "unlock_town_hall_level": 5, "role": "siege_melee", "housing_space": 5, "hp": 250, "damage_per_second": 30, "speed": "very_slow", "special_trait": "Doppelschaden gegen Mauern und Tore.", "cost": { "wood": 250, "stone": 100 }, "train_time_seconds": 180 },
+        { "id": "trebuchet", "display_name": "Trebuchet", "unlock_town_hall_level": 8, "role": "siege_ranged", "housing_space": 7, "hp": 140, "damage_per_second": 50, "range_tiles": 10, "splash_damage": true, "speed": "very_slow", "cost": { "wood": 400, "stone": 200, "gold": 30 }, "train_time_seconds": 300 },
+        { "id": "ballista", "display_name": "Ballista", "unlock_town_hall_level": 7, "role": "siege_ranged", "housing_space": 5, "hp": 110, "damage_per_second": 40, "range_tiles": 9, "speed": "slow", "cost": { "wood": 320, "stone": 140 }, "train_time_seconds": 220 },
+        { "id": "siege_tower", "display_name": "Belagerungsturm", "unlock_town_hall_level": 8, "role": "siege_support", "housing_space": 7, "hp": 400, "damage_per_second": 10, "speed": "very_slow", "special_trait": "Sehr robust; zieht Verteidigungsfeuer auf sich (Schild für die Armee).", "cost": { "wood": 400, "stone": 200 }, "train_time_seconds": 300 },
+
+        { "id": "mage", "display_name": "Magier", "unlock_town_hall_level": 6, "role": "magic_caster", "housing_space": 4, "hp": 70, "damage_per_second": 26, "range_tiles": 5, "splash_damage": true, "speed": "medium", "cost": { "wood": 220, "gold": 40 }, "train_time_seconds": 150 },
+        { "id": "high_mage", "display_name": "Hoher Magier", "unlock_town_hall_level": 9, "role": "magic_caster", "housing_space": 6, "hp": 110, "damage_per_second": 38, "range_tiles": 6, "splash_damage": true, "speed": "medium", "cost": { "wood": 360, "gold": 80 }, "train_time_seconds": 220 },
+        { "id": "white_witch", "display_name": "Weiße Hexe", "unlock_town_hall_level": 8, "role": "magic_support", "housing_space": 5, "hp": 90, "heal_per_second": 18, "range_tiles": 5, "speed": "medium", "special_ability": "Heilt mehrere verbündete Einheiten in Reichweite.", "cost": { "wood": 300, "gold": 60 }, "train_time_seconds": 180 },
+        { "id": "archangel", "display_name": "Erzengel", "unlock_town_hall_level": 10, "role": "magic_elite", "housing_space": 8, "hp": 400, "damage_per_second": 36, "range_tiles": 4, "splash_damage": true, "speed": "medium", "special_ability": "Erzengel-Aura: heilt Verbündete und schlägt mit heiligem Flächenschaden.", "cost": { "wood": 500, "stone": 200, "gold": 120 }, "train_time_seconds": 300 },
+
+        { "id": "spy", "display_name": "Spion", "unlock_town_hall_level": 5, "role": "special_scout", "housing_space": 1, "hp": 50, "damage_per_second": 5, "speed": "fast", "special_ability": "Späht das gegnerische Layout aus (Aufklärung).", "cost": { "wood": 100, "gold": 20 }, "train_time_seconds": 60 },
+        { "id": "engineer", "display_name": "Ingenieur", "unlock_town_hall_level": 6, "role": "special_support", "housing_space": 2, "hp": 80, "damage_per_second": 8, "speed": "medium", "special_ability": "Repariert eigene Belagerungsgeräte/Mauern im Kampf.", "cost": { "wood": 150, "gold": 30 }, "train_time_seconds": 100 },
+        { "id": "dragon_rider", "display_name": "Drachenreiter", "unlock_town_hall_level": 9, "role": "special_air", "housing_space": 6, "hp": 300, "damage_per_second": 34, "range_tiles": 4, "splash_damage": true, "speed": "medium", "special_ability": "Feuerodem aus der Luft (Flächenschaden).", "cost": { "wood": 400, "stone": 100, "gold": 100 }, "train_time_seconds": 240 },
+        { "id": "royal_berserker", "display_name": "Berserker", "unlock_town_hall_level": 7, "role": "melee_berserker", "housing_space": 4, "hp": 160, "damage_per_second": 34, "speed": "fast", "special_trait": "Schaden steigt, wenn eigene HP unter 50% fallen (Rage).", "cost": { "wood": 220, "stone": 60 }, "train_time_seconds": 150 },
+        { "id": "rune_knight", "display_name": "Runenritter", "unlock_town_hall_level": 8, "role": "melee_elite", "housing_space": 5, "hp": 260, "damage_per_second": 26, "speed": "medium", "special_ability": "Runen-Schild: verstärkt kurzzeitig die HP benachbarter Einheiten.", "cost": { "wood": 300, "stone": 120, "gold": 40 }, "train_time_seconds": 180 },
+
+        {
+          "id": "knight_captain",
+          "display_name": "Hauptmann",
+          "unlock_town_hall_level": 8,
+          "role": "melee_elite",
+          "housing_space": 5,
+          "hp": 260,
+          "damage_per_second": 22,
+          "speed": "medium",
+          "cost": { "wood": 250, "stone": 100, "gold": 30 },
+          "train_time_seconds": 150,
+          "special_ability": "Erhöht Moral (kleiner Schadensbonus) für benachbarte Einheiten im Kampf."
+        }
+      ]
+    },
+
+    "fishfolk": {
+      "exclusive_buildings": [
+        {
+          "id": "tide_well",
+          "display_name": "Gezeitenbrunnen",
+          "unlock_town_hall_level": 4,
+          "function": "Erhöht Holz-/Steinertrag aller angrenzenden Gebäude um den fraktionseigenen Wasser-Bonus (siehe factions.fishfolk.modifiers).",
+          "wood_cost": 3000,
+          "stone_cost": 2200,
+          "build_time_minutes": 360
+        },
+        {
+          "id": "canal_lock",
+          "display_name": "Kanalschleuse",
+          "unlock_town_hall_level": 6,
+          "function": "Defensivgebäude, das gegnerische Bodeneinheiten beim Durchqueren von Wasser-Tiles verlangsamt.",
+          "type": "defense",
+          "base_hp": 350,
+          "wood_cost": 5000,
+          "stone_cost": 4000,
+          "build_time_minutes": 720
+        }
+      ],
+      "exclusive_units": [
+        {
+          "id": "tide_warrior",
+          "display_name": "Gezeitenkämpfer",
+          "unlock_town_hall_level": 5,
+          "role": "melee_amphibious",
+          "housing_space": 3,
+          "hp": 150,
+          "damage_per_second": 17,
+          "speed": "medium",
+          "special_trait": "Volle Bewegungsgeschwindigkeit auf Wasser-Tiles (andere Einheiten sind dort verlangsamt).",
+          "cost": { "wood": 130, "stone": 30 },
+          "train_time_seconds": 100
+        },
+        {
+          "id": "net_thrower",
+          "display_name": "Netzwerfer",
+          "unlock_town_hall_level": 7,
+          "role": "ranged_support",
+          "housing_space": 4,
+          "hp": 80,
+          "damage_per_second": 10,
+          "range_tiles": 5,
+          "special_ability": "Verlangsamt getroffene Gegner kurzzeitig um 25%.",
+          "cost": { "wood": 220, "gold": 15 },
+          "train_time_seconds": 160
+        }
+      ]
+    },
+
+    "giants": {
+      "exclusive_buildings": [
+        {
+          "id": "boulder_quarry",
+          "display_name": "Felsbrocken-Grube",
+          "unlock_town_hall_level": 5,
+          "function": "Spezial-Steinproduktion mit höherem Output pro Gebäude-Slot (kompensiert lange Bauzeiten durch Effizienz statt Geschwindigkeit).",
+          "wood_cost": 4500,
+          "stone_cost": 3500,
+          "build_time_minutes": 600
+        }
+      ],
+      "exclusive_units": [
+        {
+          "id": "stone_giant",
+          "display_name": "Steinriese",
+          "unlock_town_hall_level": 6,
+          "role": "melee_tank_heavy",
+          "housing_space": 8,
+          "hp": 420,
+          "damage_per_second": 30,
+          "speed": "very_slow",
+          "cost": { "wood": 400, "stone": 250 },
+          "train_time_seconds": 300
+        },
+        {
+          "id": "boulder_thrower",
+          "display_name": "Felswerfer",
+          "unlock_town_hall_level": 8,
+          "role": "ranged_siege",
+          "housing_space": 7,
+          "hp": 280,
+          "damage_per_second": 38,
+          "range_tiles": 6,
+          "splash_damage": true,
+          "speed": "very_slow",
+          "cost": { "wood": 350, "stone": 300, "gold": 40 },
+          "train_time_seconds": 280
+        }
+      ]
+    },
+
+    "dwarves": {
+      "exclusive_buildings": [
+        {
+          "id": "deep_mine_shaft",
+          "display_name": "Tiefer Stollen",
+          "unlock_town_hall_level": 4,
+          "function": "Alternative/zusätzliche Steinproduktionsstätte mit fraktionseigenem Abbau-Bonus.",
+          "wood_cost": 2500,
+          "stone_cost": 1800,
+          "build_time_minutes": 300
+        },
+        {
+          "id": "forge",
+          "display_name": "Schmiede",
+          "unlock_town_hall_level": 5,
+          "function": "Reduziert Upgrade-Kosten für Verteidigungsgebäude zusätzlich zum allgemeinen Zwerge-Rabatt.",
+          "wood_cost": 3500,
+          "stone_cost": 3000,
+          "gold_cost": 200,
+          "build_time_minutes": 480
+        }
+      ],
+      "exclusive_units": [
+        {
+          "id": "axe_dwarf",
+          "display_name": "Axtzwerg",
+          "unlock_town_hall_level": 4,
+          "role": "melee_basic_armored",
+          "housing_space": 2,
+          "hp": 110,
+          "damage_per_second": 15,
+          "speed": "slow",
+          "cost": { "wood": 80, "stone": 30 },
+          "train_time_seconds": 60
+        },
+        {
+          "id": "rune_smith",
+          "display_name": "Runenschmied",
+          "unlock_town_hall_level": 7,
+          "role": "support_buff",
+          "housing_space": 4,
+          "hp": 90,
+          "special_ability": "Erhöht die HP nahestehender Einheiten temporär um 15%.",
+          "speed": "slow",
+          "cost": { "wood": 180, "gold": 35 },
+          "train_time_seconds": 170
+        }
+      ]
+    },
+
+    "elves": {
+      "exclusive_buildings": [
+        {
+          "id": "treetop_lookout",
+          "display_name": "Baumwipfel-Ausguck",
+          "unlock_town_hall_level": 5,
+          "function": "Erhöht Reichweite aller Verteidigungsgebäude in der Nähe leicht.",
+          "type": "defense_support",
+          "wood_cost": 4000,
+          "stone_cost": 1500,
+          "build_time_minutes": 420
+        }
+      ],
+      "exclusive_units": [
+        {
+          "id": "forest_archer",
+          "display_name": "Waldschütze",
+          "unlock_town_hall_level": 4,
+          "role": "ranged_fast",
+          "housing_space": 2,
+          "hp": 55,
+          "damage_per_second": 18,
+          "range_tiles": 5,
+          "speed": "fast",
+          "cost": { "wood": 90 },
+          "train_time_seconds": 50
+        },
+        {
+          "id": "blade_dancer",
+          "display_name": "Klingentänzer",
+          "unlock_town_hall_level": 6,
+          "role": "melee_fast_fragile",
+          "housing_space": 3,
+          "hp": 95,
+          "damage_per_second": 24,
+          "speed": "very_fast",
+          "cost": { "wood": 160, "gold": 10 },
+          "train_time_seconds": 110
+        }
+      ]
+    },
+
+    "undead": {
+      "exclusive_buildings": [
+        {
+          "id": "bone_yard",
+          "display_name": "Knochenhof",
+          "unlock_town_hall_level": 5,
+          "function": "Reduziert Rekrutierungskosten für Untoten-Einheiten zusätzlich zum allgemeinen Fraktionsrabatt.",
+          "wood_cost": 3000,
+          "stone_cost": 2000,
+          "build_time_minutes": 420
+        }
+      ],
+      "exclusive_units": [
+        {
+          "id": "skeleton_soldier",
+          "display_name": "Skelettsoldat",
+          "unlock_town_hall_level": 3,
+          "role": "melee_basic_cheap",
+          "housing_space": 1,
+          "hp": 50,
+          "damage_per_second": 9,
+          "speed": "medium",
+          "cost": { "wood": 20 },
+          "train_time_seconds": 18,
+          "special_ability": "Regeneriert 2 HP/Sekunde, solange im Kampf, sofern nicht durch Feuerschaden getroffen."
+        },
+        {
+          "id": "wraith",
+          "display_name": "Geist",
+          "unlock_town_hall_level": 7,
+          "role": "melee_evasive",
+          "housing_space": 4,
+          "hp": 130,
+          "damage_per_second": 20,
+          "speed": "fast",
+          "special_trait": "10% Chance, gegnerischen Angriffen auszuweichen (Phasing).",
+          "cost": { "wood": 150, "gold": 15 },
+          "train_time_seconds": 130
+        }
+      ]
+    },
+
+    "orcs": {
+      "exclusive_buildings": [
+        {
+          "id": "war_tent",
+          "display_name": "Kriegszelt",
+          "unlock_town_hall_level": 5,
+          "function": "Beschleunigt Rekrutierung von Nahkampf-Einheiten zusätzlich.",
+          "wood_cost": 3500,
+          "stone_cost": 2500,
+          "build_time_minutes": 420
+        }
+      ],
+      "exclusive_units": [
+        {
+          "id": "orc_grunt",
+          "display_name": "Ork-Schläger",
+          "unlock_town_hall_level": 3,
+          "role": "melee_basic_aggressive",
+          "housing_space": 2,
+          "hp": 90,
+          "damage_per_second": 17,
+          "speed": "medium",
+          "cost": { "wood": 60, "stone": 10 },
+          "train_time_seconds": 40
+        },
+        {
+          "id": "berserker",
+          "display_name": "Berserker",
+          "unlock_town_hall_level": 6,
+          "role": "melee_glass_cannon",
+          "housing_space": 4,
+          "hp": 140,
+          "damage_per_second": 32,
+          "speed": "fast",
+          "special_trait": "Schaden steigt um 20%, wenn eigene HP unter 50% fallen (Rage-Mechanik).",
+          "cost": { "wood": 200, "stone": 60 },
+          "train_time_seconds": 140
+        }
+      ]
+    },
+    "dragonfolk": {
+      "exclusive_buildings": [
+        {
+          "id": "dragon_roost",
+          "display_name": "Drachenhorst",
+          "unlock_town_hall_level": 5,
+          "function": "Brutstätte der Drachenwesen – beschleunigt die Ausbildung fraktionseigener Drachen-Einheiten.",
+          "wood_cost": 3800,
+          "stone_cost": 2800,
+          "build_time_minutes": 450
+        }
+      ],
+      "exclusive_units": [
+        {
+          "id": "dragon_whelp",
+          "display_name": "Drachenbrut",
+          "unlock_town_hall_level": 4,
+          "role": "ranged_fire",
+          "housing_space": 3,
+          "hp": 110,
+          "damage_per_second": 15,
+          "range_tiles": 4,
+          "speed": "medium",
+          "special_trait": "Feuerangriff – setzt getroffene Ziele kurz in Brand (Restschaden).",
+          "cost": { "wood": 150, "gold": 10 },
+          "train_time_seconds": 110
+        },
+        {
+          "id": "flame_drake",
+          "display_name": "Flammendrache",
+          "unlock_town_hall_level": 8,
+          "role": "ranged_elite_splash",
+          "housing_space": 6,
+          "hp": 230,
+          "damage_per_second": 24,
+          "range_tiles": 5,
+          "splash_damage": true,
+          "speed": "slow",
+          "special_ability": "Feuerodem: verursacht Flächenschaden an der getroffenen Stelle.",
+          "cost": { "wood": 300, "stone": 80, "gold": 50 },
+          "train_time_seconds": 190
+        }
+      ]
+    }
+  },
+
+  "skins": {
+    "description": "Rein kosmetisch, keine Statwerte. Einziger primärer Goldbarren-Sink neben Bauzeit-Skip. catalog wird beim Serverstart idempotent in die skins-Tabelle geseedet (Phase 5).",
+    "example_pricing_bars": {
+      "unit_skin_common": 80,
+      "unit_skin_rare": 200,
+      "building_skin_common": 150,
+      "building_skin_rare": 350,
+      "village_theme_full_set": 1200
+    },
+    "catalog": [
+      { "id": "militia_crimson", "name": "Purpur-Miliz", "target_type": "unit", "target_id": "militia", "rarity": "common", "price_bars": 80, "preview_data": { "primary": "#c0392b", "accent": "#f0c040" } },
+      { "id": "archer_emerald", "name": "Smaragd-Schütze", "target_type": "unit", "target_id": "archer", "rarity": "common", "price_bars": 80, "preview_data": { "primary": "#27ae60", "accent": "#ecf0f1" } },
+      { "id": "knight_golden", "name": "Goldener Ordensritter", "target_type": "unit", "target_id": "knight", "rarity": "rare", "price_bars": 200, "preview_data": { "primary": "#f0c040", "accent": "#ffffff" } },
+      { "id": "townhall_obsidian", "name": "Obsidian-Rathaus", "target_type": "building", "target_id": "town_hall", "rarity": "common", "price_bars": 150, "preview_data": { "primary": "#263238", "accent": "#00ccff" } },
+      { "id": "townhall_royal", "name": "Königliche Zitadelle", "target_type": "building", "target_id": "town_hall", "rarity": "rare", "price_bars": 350, "preview_data": { "primary": "#4a0080", "accent": "#f0c040" } },
+      { "id": "theme_frostlands", "name": "Frostlande (Dorf-Theme)", "target_type": "village_theme", "target_id": "all", "rarity": "rare", "price_bars": 1200, "preview_data": { "ground": "#aee3f5", "primary": "#78909c", "accent": "#00ccff" } }
+    ]
+  },
+
+  "iap": {
+    "description": "In-App-Käufe für Goldbarren (Abschnitt 12). Nur Goldbarren sind käuflich; kein Pay-to-Win (Goldbarren kaufen ausschließlich Skins + Bauzeit-Skip + einmaligen Fraktionswechsel). Preise dienen der Produktdefinition; die Belastung läuft real über Apple/Google.",
+    "packages": [
+      { "product_id": "bars_starter", "display_name": "Starter", "bars": 80, "price_eur": 0.99 },
+      { "product_id": "bars_small", "display_name": "Klein", "bars": 500, "price_eur": 4.99 },
+      { "product_id": "bars_medium", "display_name": "Mittel", "bars": 1200, "price_eur": 9.99 },
+      { "product_id": "bars_large", "display_name": "Groß", "bars": 2600, "price_eur": 19.99 },
+      { "product_id": "bars_mega", "display_name": "Mega", "bars": 6500, "price_eur": 49.99 }
+    ],
+    "sandbox_note": "Lokale/Sandbox-Verifizierung akzeptiert Belege der Form 'sandbox:<product_id>:<transaction_id>' (nur wenn IAP_ALLOW_SANDBOX aktiv ist). Produktiv werden echte Apple-/Google-Belege gegen die jeweilige API geprüft."
+  },
+
+  "effects": {
+    "description": "Grafik & Game Juice (Phase 6, TEIL-2-Spec). Ausschließlich kosmetische Effekt-Parameter — sie beeinflussen KEINE Balance. Laut eiserner Regel sind alle Effekt-Zahlenwerte hier zentralisiert (nicht im Code). Die App liest sie via GET /api/config; das Backend nutzt sie nicht.",
+    "particle_cap": 200,
+    "particle_cap_reduced": 80,
+    "fps_target": 60,
+    "reduce_effects_default": false,
+    "screen_transition_ms": 240,
+    "screenshake": {
+      "unit_hits_wall": 3,
+      "tower_fires": 4,
+      "heavy_unit_lands": 10,
+      "building_destroyed": 14,
+      "town_hall_destroyed": 20,
+      "decay_per_frame": 0.85,
+      "min_intensity": 0.5
+    },
+    "floating_text": {
+      "rise_px_per_frame": 1.2,
+      "life_decay_per_frame": 0.015,
+      "shadow": true,
+      "colors": {
+        "damage": "#ff4444",
+        "resource": "#7cdc5a",
+        "trophy_gain": "#f0c040",
+        "trophy_loss": "#888888",
+        "crit": "#ff9f43"
+      }
+    },
+    "squash": {
+      "button_press_scale": 0.94,
+      "upgrade_peak_scale": 1.35,
+      "spawn_start_scale": 0.2,
+      "spawn_overshoot_scale": 1.1,
+      "destroy_collapse_seconds": 0.5
+    },
+    "idle": {
+      "breathing_amplitude": 0.012,
+      "breathing_period_seconds": 2.0,
+      "flag_sway_amplitude_deg": 14,
+      "flag_sway_period_seconds": 2.4
+    },
+    "presets": {
+      "upgradeBurst": { "count": 28, "size_min": 2, "size_max": 4, "speed": 3.2, "gravity": 0.06, "decay": 0.022, "colors": ["#f0c040", "#ffffff", "#ffe08a"] },
+      "levelUpAura": { "count": 40, "size_min": 2, "size_max": 4, "speed": 2.6, "gravity": 0.0, "decay": 0.018, "colors": ["#aa44ff", "#ff66cc", "#dcb3ff"] },
+      "coinRain": { "count": 22, "size_min": 3, "size_max": 5, "speed": 1.6, "gravity": 0.14, "decay": 0.014, "colors": ["#f0c040", "#ffd76a"] },
+      "hitSpark": { "count": 18, "size_min": 1.5, "size_max": 3, "speed": 3.4, "gravity": 0.22, "decay": 0.05, "colors": ["#ff4444", "#ff9f43", "#ffd24a"] },
+      "deploySpawn": { "count": 16, "size_min": 2, "size_max": 3.5, "speed": 2.4, "gravity": 0.12, "decay": 0.03, "colors": ["#7aa7ff", "#bcd4ff", "#ffffff"] },
+      "destroyBurst": { "count": 34, "size_min": 2, "size_max": 5, "speed": 3.6, "gravity": 0.16, "decay": 0.02, "colors": ["#9a7b4f", "#6b5436", "#3a2c1c"] },
+      "magicAmbient": { "count": 6, "size_min": 1.5, "size_max": 3, "speed": 0.5, "gravity": -0.02, "decay": 0.01, "colors": ["#00ccff", "#aa44ff", "#dcc4ff"] }
+    },
+    "performance_note": "Globale Obergrenze particle_cap (200); bei FPS-Einbruch / 'Effekte reduzieren' gilt particle_cap_reduced (80). Idle-Atmung nur sichtbare Gebäude. Partikel = einfache Kreise/Ellipsen (keine teuren Pfade)."
+  }
+}

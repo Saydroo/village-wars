@@ -1,0 +1,25 @@
+{
+  "script": "barracks_tiered.py",
+  "out": "C:\\Users\\Ufuk\\Claude Code\\Village-Wars\\design\\blender\\_nosockel\\barracks.png",
+  "res": 700,
+  "ortho_scale": 9.0,
+  "footx": 350.0,
+  "footy": 589.49,
+  "bbox_world": [
+    -2.0,
+    2.0,
+    -1.61,
+    2.8,
+    0.0,
+    4.585
+  ],
+  "width_world": 4.0,
+  "depth_world": 4.41,
+  "removed_ground_objects": [
+    "dirt",
+    "grass",
+    "grass2",
+    "tuft",
+    "tuft.001"
+  ]
+}

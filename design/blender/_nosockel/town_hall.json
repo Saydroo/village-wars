@@ -1,0 +1,25 @@
+{
+  "script": "town_hall_tiered.py",
+  "out": "C:\\Users\\Ufuk\\Claude Code\\Village-Wars\\design\\blender\\_nosockel\\town_hall.png",
+  "res": 700,
+  "ortho_scale": 8.4,
+  "footx": 350.0,
+  "footy": 606.6,
+  "bbox_world": [
+    -2.3533,
+    2.3533,
+    -1.86,
+    1.98,
+    0.0,
+    5.685
+  ],
+  "width_world": 4.7066,
+  "depth_world": 3.84,
+  "removed_ground_objects": [
+    "dirt",
+    "grass",
+    "grass2",
+    "tuft",
+    "tuft.001"
+  ]
+}

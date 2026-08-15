@@ -1,0 +1,60 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Expo / React Native
+apps/mobile/.expo/
+apps/mobile/.expo-shared/
+apps/mobile/web-build/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# ============================================================
+# Ergaenzungen - Variante B (ohne Git-LFS)
+# ============================================================
+
+# QA-/Scratch-Ausgaben
+qa_out/
+__pycache__/
+*.pyc
+
+# Archiv-/Backup-Ordner nur im App-/Build-Baum (design/blender/_archiv bleibt getrackt)
+apps/**/_archiv*/
+
+# Build-Artefakte (zusaetzlich zu build/)
+*.apk
+*.aab
+
+# Design: nur Blender-Master + .py-Pipeline versionieren.
+# QA-Screenshots, Pruefbilder, Referenzen und Eingang NICHT ins Repo (separat sichern).
+design/emu/
+design/harness/
+design/referenzen/
+design/incoming/

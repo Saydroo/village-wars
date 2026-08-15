@@ -1,0 +1,260 @@
+{
+  "anchors": {
+    "town_hall": [
+      0.5005,
+      0.8809
+    ],
+    "clan_castle": [
+      0.4992,
+      0.8809
+    ],
+    "barracks": [
+      0.4993,
+      0.8809
+    ],
+    "watchtower": [
+      0.4994,
+      0.8809
+    ],
+    "cannon": [
+      0.5008,
+      0.8809
+    ],
+    "wall": [
+      0.5002,
+      0.8809
+    ],
+    "gold_mine": [
+      0.5005,
+      0.8809
+    ],
+    "quarry": [
+      0.4996,
+      0.8809
+    ],
+    "lumber_camp": [
+      0.5005,
+      0.8809
+    ],
+    "storage_gold": [
+      0.4998,
+      0.8809
+    ],
+    "storage_stone": [
+      0.5002,
+      0.8809
+    ],
+    "storage_wood": [
+      0.5001,
+      0.8809
+    ],
+    "research_lab": [
+      0.5005,
+      0.8809
+    ],
+    "hero_hall": [
+      0.4991,
+      0.8809
+    ]
+  },
+  "tiles": {
+    "town_hall": 3,
+    "clan_castle": 2,
+    "barracks": 3,
+    "watchtower": 2,
+    "cannon": 2,
+    "wall": 2,
+    "gold_mine": 4,
+    "quarry": 3,
+    "lumber_camp": 2,
+    "storage_gold": 2,
+    "storage_stone": 3,
+    "storage_wood": 2,
+    "research_lab": 1,
+    "hero_hall": 2
+  },
+  "rows": [
+    {
+      "t": "town_hall",
+      "foot": 3,
+      "baseTiles": 3.34,
+      "fullTiles": 3.61,
+      "widthWorld": 4.7066,
+      "anchor": [
+        0.5005,
+        0.8809
+      ],
+      "softEdgeBelowPx": 1,
+      "clip": ""
+    },
+    {
+      "t": "clan_castle",
+      "foot": 2,
+      "baseTiles": 2.2,
+      "fullTiles": 2.23,
+      "widthWorld": 2.473,
+      "anchor": [
+        0.4992,
+        0.8809
+      ],
+      "softEdgeBelowPx": 0,
+      "clip": ""
+    },
+    {
+      "t": "barracks",
+      "foot": 3,
+      "baseTiles": 3.41,
+      "fullTiles": 3.41,
+      "widthWorld": 4,
+      "anchor": [
+        0.4993,
+        0.8809
+      ],
+      "softEdgeBelowPx": 0,
+      "clip": ""
+    },
+    {
+      "t": "watchtower",
+      "foot": 2,
+      "baseTiles": 1.8,
+      "fullTiles": 2.01,
+      "widthWorld": 2.88,
+      "anchor": [
+        0.4994,
+        0.8809
+      ],
+      "softEdgeBelowPx": 0,
+      "clip": ""
+    },
+    {
+      "t": "cannon",
+      "foot": 2,
+      "baseTiles": 2.18,
+      "fullTiles": 2.49,
+      "widthWorld": 3.4951,
+      "anchor": [
+        0.5008,
+        0.8809
+      ],
+      "softEdgeBelowPx": 0,
+      "clip": ""
+    },
+    {
+      "t": "wall",
+      "foot": 2,
+      "baseTiles": 1.71,
+      "fullTiles": 1.74,
+      "widthWorld": 2.9,
+      "anchor": [
+        0.5002,
+        0.8809
+      ],
+      "softEdgeBelowPx": 0,
+      "clip": ""
+    },
+    {
+      "t": "gold_mine",
+      "foot": 4,
+      "baseTiles": 3.65,
+      "fullTiles": 3.87,
+      "widthWorld": 5.0082,
+      "anchor": [
+        0.5005,
+        0.8809
+      ],
+      "softEdgeBelowPx": 0,
+      "clip": ""
+    },
+    {
+      "t": "quarry",
+      "foot": 3,
+      "baseTiles": 3.3,
+      "fullTiles": 3.81,
+      "widthWorld": 5.411,
+      "anchor": [
+        0.4996,
+        0.8809
+      ],
+      "softEdgeBelowPx": 1,
+      "clip": ""
+    },
+    {
+      "t": "lumber_camp",
+      "foot": 2,
+      "baseTiles": 2.38,
+      "fullTiles": 3.79,
+      "widthWorld": 4.7774,
+      "anchor": [
+        0.5005,
+        0.8809
+      ],
+      "softEdgeBelowPx": 0,
+      "clip": ""
+    },
+    {
+      "t": "storage_gold",
+      "foot": 2,
+      "baseTiles": 1.96,
+      "fullTiles": 3.19,
+      "widthWorld": 3.9024,
+      "anchor": [
+        0.4998,
+        0.8809
+      ],
+      "softEdgeBelowPx": 0,
+      "clip": ""
+    },
+    {
+      "t": "storage_stone",
+      "foot": 3,
+      "baseTiles": 3.09,
+      "fullTiles": 3.12,
+      "widthWorld": 4.1,
+      "anchor": [
+        0.5002,
+        0.8809
+      ],
+      "softEdgeBelowPx": 1,
+      "clip": ""
+    },
+    {
+      "t": "storage_wood",
+      "foot": 2,
+      "baseTiles": 2.32,
+      "fullTiles": 3.94,
+      "widthWorld": 4.325,
+      "anchor": [
+        0.5001,
+        0.8809
+      ],
+      "softEdgeBelowPx": 0,
+      "clip": ""
+    },
+    {
+      "t": "research_lab",
+      "foot": 1,
+      "baseTiles": 1.2,
+      "fullTiles": 1.58,
+      "widthWorld": 3.1038,
+      "anchor": [
+        0.5005,
+        0.8809
+      ],
+      "softEdgeBelowPx": 0,
+      "clip": ""
+    },
+    {
+      "t": "hero_hall",
+      "foot": 2,
+      "baseTiles": 1.91,
+      "fullTiles": 2.14,
+      "widthWorld": 3.2566,
+      "anchor": [
+        0.4991,
+        0.8809
+      ],
+      "softEdgeBelowPx": 0,
+      "clip": ""
+    }
+  ]
+}

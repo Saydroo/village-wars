@@ -1,0 +1,26 @@
+{
+  "script": "gold_mine_tiered.py",
+  "out": "C:\\Users\\Ufuk\\Claude Code\\Village-Wars\\design\\blender\\_nosockel\\gold_mine.png",
+  "res": 700,
+  "ortho_scale": 7.8,
+  "footx": 350.0,
+  "footy": 536.53,
+  "bbox_world": [
+    -2.509,
+    2.4992,
+    -2.4183,
+    3.13,
+    0.0,
+    4.3996
+  ],
+  "width_world": 5.0082,
+  "depth_world": 5.5483,
+  "removed_ground_objects": [
+    "dirt",
+    "grass",
+    "grass2",
+    "tuft",
+    "tuft.001",
+    "apron"
+  ]
+}

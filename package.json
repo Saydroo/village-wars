@@ -1,0 +1,24 @@
+{
+  "name": "village-wars",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Village Wars — mobiles Aufbau- & Echtzeit-PvP-Strategiespiel (Monorepo)",
+  "workspaces": [
+    "packages/*",
+    "server",
+    "apps/*"
+  ],
+  "scripts": {
+    "typecheck": "npm run typecheck -w @village-wars/shared && npm run typecheck -w @village-wars/server",
+    "test": "npm run test -w @village-wars/shared",
+    "test:server": "npm run test -w @village-wars/server",
+    "test:types": "npm run test:types -w @village-wars/shared && npm run test:types -w @village-wars/server",
+    "dev:server": "npm run dev -w @village-wars/server",
+    "start:server": "npm run start -w @village-wars/server",
+    "migrate": "npm run migrate -w @village-wars/server",
+    "migrate:create": "npm run migrate:create -w @village-wars/server"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

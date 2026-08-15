@@ -1,0 +1,24 @@
+{
+  "name": "@village-wars/shared",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Geteilte Typen & Validierung für Village Wars (Frontend + Backend)",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test \"test/**/*.test.ts\"",
+    "test:types": "tsc --noEmit -p tsconfig.test.json"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "_note": "Sprite-Manifest (siehe docs/ASSET-PIPELINE.md). Rein RENDERING: anchor=[x,y] in 0..1 (Fußpunkt=Kachelmitte) + file. Fehlt eine Datei, rendert die App den Vektor-Fallback. DER FOOTPRINT (Kachel-Grundfläche, tiles) LEBT NICHT MEHR HIER, sondern als geteilte Spiellogik-Quelle in packages/shared → game/footprints.ts (BUILDING_FOOTPRINTS), damit Server UND Client dieselbe Quelle nutzen. SEIT 2026-07-27 SOCKELLOSE Master (CoC-Style, kein Grassockel/Dreckhof — Boden kommt aus dem App-Rasen): Anker per Kamera-Projektion des Bauwerk-Fußpunkts (0,0,zmin). Pipeline: design/blender/_scripts/export_socketless.py + tools/build_socketless_masters.js. Alte Sockel-Master unter _archiv_sockel_v01/. ANZEIGEGRÖSSE separat aus worldScale.ts.",
+  "faction": "humans",
+  "buildings": {
+    "town_hall":     { "file": "town_hall.png",     "anchor": [0.5005, 0.8809] },
+    "cannon":        { "file": "cannon.png",         "anchor": [0.5008, 0.8809] },
+    "lumber_camp":   { "file": "lumber_camp.png",    "anchor": [0.5005, 0.8809] },
+    "clan_castle":   { "file": "clan_castle.png",    "anchor": [0.4992, 0.8809] },
+    "quarry":        { "file": "quarry.png",         "anchor": [0.4996, 0.8809] },
+    "gold_mine":     { "file": "gold_mine.png",      "anchor": [0.5005, 0.8809] },
+    "storage_wood":  { "file": "storage_wood.png",   "anchor": [0.5001, 0.8809] },
+    "storage_stone": { "file": "storage_stone.png",  "anchor": [0.5002, 0.8809] },
+    "storage_gold":  { "file": "storage_gold.png",   "anchor": [0.4998, 0.8809] },
+    "barracks":      { "file": "barracks.png",       "anchor": [0.4993, 0.8809] },
+    "watchtower":    { "file": "watchtower.png",     "anchor": [0.4994, 0.8809] },
+    "wall":          { "file": "wall.png",           "anchor": [0.5002, 0.8809] },
+    "research_lab":  { "file": "research_lab.png",   "anchor": [0.5005, 0.8809] },
+    "hero_hall":     { "file": "hero_hall.png",      "anchor": [0.4991, 0.8809] }
+  },
+  "units": {
+    "militia":  { "file": "militia.png",  "anchor": [0.5, 1.0] },
+    "archer":   { "file": "archer.png",   "anchor": [0.5455, 0.8921] },
+    "knight":   { "file": "knight.png",   "anchor": [0.5, 1.0] },
+    "catapult": { "file": "catapult.png", "anchor": [0.5, 1.0] },
+    "healer":   { "file": "healer.png",   "anchor": [0.5, 1.0] }
+  },
+  "_unit_poses_note": "Facing-Sprites je Zustand+Blickrichtung (Kampf-Renderer, ab App-Teil 3). Render: design/blender/_scripts/archer_export_facing.py (Kamera+Licht mitgedreht, Figur unveraendert, fixer ortho_scale, Fusspunkt-Anker per Kameraprojektion). Azimut->Screen-Facing: az45=vorn-links(grid +y / unten-links), az315=vorn-rechts(grid +x / unten-rechts), az135=hinten-rechts(grid -y / oben-rechts), az225=hinten-links(grid -x / oben-links). Victory bewusst nicht im Kampf.",
+  "unit_poses": {
+    "archer": {
+      "idle": {
+        "az45":  { "file": "archer_idle_az45.png",  "anchor": [0.5412, 0.8376] },
+        "az315": { "file": "archer_idle_az315.png", "anchor": [0.5072, 0.8497] },
+        "az135": { "file": "archer_idle_az135.png", "anchor": [0.4928, 0.8481] },
+        "az225": { "file": "archer_idle_az225.png", "anchor": [0.4588, 0.8446] }
+      },
+      "walk": {
+        "az45":  { "file": "archer_walk_az45.png",  "anchor": [0.5320, 0.8343] },
+        "az315": { "file": "archer_walk_az315.png", "anchor": [0.4555, 0.8264] },
+        "az135": { "file": "archer_walk_az135.png", "anchor": [0.5445, 0.8409] },
+        "az225": { "file": "archer_walk_az225.png", "anchor": [0.4680, 0.8503] }
+      },
+      "attack": {
+        "az45":  { "file": "archer_attack_az45.png",  "anchor": [0.4970, 0.8568] },
+        "az315": { "file": "archer_attack_az315.png", "anchor": [0.4387, 0.8572] },
+        "az135": { "file": "archer_attack_az135.png", "anchor": [0.5030, 0.8474] },
+        "az225": { "file": "archer_attack_az225.png", "anchor": [0.5705, 0.8476] }
+      }
+    }
+  }
+}

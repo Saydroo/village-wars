@@ -1,0 +1,25 @@
+{
+  "script": "watchtower_tiered.py",
+  "out": "C:\\Users\\Ufuk\\Claude Code\\Village-Wars\\design\\blender\\_nosockel\\watchtower.png",
+  "res": 700,
+  "ortho_scale": 7.4,
+  "footx": 350.0,
+  "footy": 728.66,
+  "bbox_world": [
+    -1.44,
+    1.44,
+    -1.44,
+    1.44,
+    0.0,
+    5.43
+  ],
+  "width_world": 2.88,
+  "depth_world": 2.88,
+  "removed_ground_objects": [
+    "dirt",
+    "grass",
+    "grass2",
+    "tuft",
+    "tuft.001"
+  ]
+}

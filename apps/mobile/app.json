@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "Village Wars",
+    "slug": "village-wars",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "villagewars",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": false,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.villagewars.app"
+    },
+    "android": {
+      "package": "com.villagewars.app"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "extra": {
+      "apiUrl": "http://localhost:4000"
+    }
+  }
+}
