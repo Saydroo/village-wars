@@ -26,8 +26,9 @@ const CANVAS = 512;
 
 const UNIT = 'archer';
 const AZ = [45, 135, 225, 315];
-// Zu (re)generierende Zustände. attack neu (Aim-Fix + FRONT_DEG); idle/walk bleiben.
-const STATES = ['attack'];
+// Zu (re)generierende Zustände. walk neu (Facing-Fix: pro-Facing FRONT_DEG_WALK,
+// rigide Koerperdrehung az45=-90/az315=+90/az135=az225=0); idle/attack bleiben.
+const STATES = ['walk'];
 
 (async () => {
   const jobs = STATES.flatMap((state) => AZ.map((az) => ({ state, az })));

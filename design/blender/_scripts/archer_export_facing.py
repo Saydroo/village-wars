@@ -482,6 +482,26 @@ if POSE == "attack":
     ROT_ALIGN = Matrix.Rotation(_align_ang, 3, 'Z')
     print(f"ROT-ALIGN attack az{_azk}: Pfeil-XY {math.degrees(_cur_ang):+.2f} -> Ziel "
           f"{PHI_TARGET[_azk]:+.2f} (world-XY) => Drehung {math.degrees(_align_ang):+.2f} Grad um Z")
+elif POSE == "walk":
+    # WALK-FACING (fix/walk-facing): rigide Koerper-/Schrittachsen-Ausrichtung pro
+    # Facing — KEIN Aim/ROT_ALIGN (walk hat keinen Pfeil). Dieselbe FRONT_DEG-Familie
+    # wie attack (pro-Facing-Betrag), nur als STARRE Ganzkoerper-Drehung um Z: Bein-
+    # schritt + Arm-Gegenschwung drehen zusammen, die Pose bleibt kohaerent. Die walk-
+    # Vorwaertsachse ist +Y (R-Fuss vor); nach der v07-Spiegelung x->-x bleibt sie +Y.
+    # FRONT_DEG_WALK[AZ] legt +Y durch die az-Kamera GENAU auf die Bewegungs-Screen-
+    # richtung dieses Facings (render.ts/gridToScreen; combat.ts/quantizeFacing):
+    #   az45=grid+y=unten-links, az315=grid+x=unten-rechts,
+    #   az135=grid-y=oben-rechts, az225=grid-x=oben-links.
+    # Empirisch bestimmt (measure_walk_facing.py: pro az der Z-Winkel, der die +Y-
+    # Projektion auf die Zielrichtung legt; Restfehler 0.000 -> reine Rotation genuegt,
+    # KEINE Chiralitaets-/Spiegelfrage). az135/az225 = 0 (laufen schon korrekt),
+    # az45/az315 = -/+90 (waren ~127 Grad quer). Angewandt wie ROT_ALIGN (via _MROOT
+    # + _al), damit Meshes UND alle analytischen Referenzen/Asserts konsistent drehen.
+    FRONT_DEG_WALK = {45: -90.0, 135: 0.0, 225: 0.0, 315: 90.0}
+    _wk = int(round(AZ))
+    assert _wk in FRONT_DEG_WALK, f"walk: kein FRONT_DEG_WALK fuer az{_wk}"
+    ROT_ALIGN = Matrix.Rotation(math.radians(FRONT_DEG_WALK[_wk]), 3, 'Z')
+    print(f"WALK-FACING az{_wk}: FRONT_DEG_WALK {FRONT_DEG_WALK[_wk]:+.1f} Grad um Z (rigide, kein Aim)")
 else:
     ROT_ALIGN = Matrix.Identity(3)
 
@@ -829,6 +849,27 @@ _uv = world_to_camera_view(sc, cam, _wmid)
 _ax, _ay = _uv.x, 1.0 - _uv.y
 print(f"ANCHOR {POSE} az{int(AZ)} = [{_ax:.4f}, {_ay:.4f}]  "
       f"render_px ({_ax * sc.render.resolution_x:.1f}, {_ay * sc.render.resolution_y:.1f})")
+
+# WALK-CHECK (fix/walk-facing): EMPIRISCHE Selbstkontrolle (messen, nicht raten).
+# Vergleicht die projizierte Laufrichtung (durch die Render-Kamera, u_ax/w_ax = Bild
+# rechts/oben) mit der Bewegungs-Screenrichtung dieses Facings (render.ts/gridToScreen).
+if POSE == "walk":
+    _TGT = {45: (-0.8944, -0.4472), 315: (0.8944, -0.4472),
+            135: (0.8944, 0.4472), 225: (-0.8944, 0.4472)}[int(round(AZ))]
+    # (a) STRIDE/Vorwaerts = +Y (rig-Design, R-Fuss vor; Fuesse ungetiltet), starr um
+    #     ROT_ALIGN mitgedreht -> die visuell relevante Laufrichtung (EIGENTLICHES Kriterium).
+    _fwd = ROT_ALIGN @ Vector((0.0, 1.0, 0.0))
+    _fi = Vector((_fwd.dot(u_ax), _fwd.dot(w_ax)))
+    # (b) Fuss-zu-Fuss (R-L) enthaelt KONSTRUKTIV die Standbreite (lateral) -> fixer
+    #     Diagonal-Offset, KEIN Laufrichtungsfehler (fixed az45/az315 == korrekte az135/az225).
+    _step = _soles[1] - _soles[0]
+    _si = Vector((_step.dot(u_ax), _step.dot(w_ax)))
+    if _fi.length > 1e-6 and _si.length > 1e-6:
+        _fi.normalize(); _si.normalize()
+        _ef = math.degrees(math.acos(max(-1.0, min(1.0, _fi.x * _TGT[0] + _fi.y * _TGT[1]))))
+        _es = math.degrees(math.acos(max(-1.0, min(1.0, _si.x * _TGT[0] + _si.y * _TGT[1]))))
+        print(f"WALK-CHECK az{int(AZ)}: STRIDE(+Y) Fehler {_ef:.1f} Grad (~0 = vorwaerts) | "
+              f"Fuss-zu-Fuss {_es:.1f} Grad (fixer Standbreiten-Offset, kein Fehler)")
 
 # Ausgabe: 768er-Render je Pose/Azimut (Downscale auf 512 + Manifest separat).
 _out = os.path.join(OUT, f"menschen_archer_{POSE}_az{int(AZ)}.png")

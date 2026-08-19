@@ -34,8 +34,8 @@
         "az225": { "file": "archer_idle_az225.png", "anchor": [0.4588, 0.8446] }
       },
       "walk": {
-        "az45":  { "file": "archer_walk_az45.png",  "anchor": [0.5320, 0.8343] },
-        "az315": { "file": "archer_walk_az315.png", "anchor": [0.4555, 0.8264] },
+        "az45":  { "file": "archer_walk_az45.png",  "anchor": [0.4555, 0.8264] },
+        "az315": { "file": "archer_walk_az315.png", "anchor": [0.5320, 0.8343] },
         "az135": { "file": "archer_walk_az135.png", "anchor": [0.5445, 0.8409] },
         "az225": { "file": "archer_walk_az225.png", "anchor": [0.4680, 0.8503] }
       },
