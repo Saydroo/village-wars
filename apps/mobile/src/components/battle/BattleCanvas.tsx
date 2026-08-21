@@ -152,15 +152,28 @@ export function BattleCanvas({
   // deployZone). Innenraum hinter dem geschlossenen Mauerring (Flood-Fill) +
   // kleiner Radius um freistehende Außen-Gebäude. Live-`alive` macht es dynamisch:
   // fällt eine Mauer (Bresche), öffnet sich der Innenraum dahinter (wie in Clash).
+  // Stabile Alive-Signatur (nur Alive, kein HP) über die Gebäude in der stabilen
+  // `buildings`-Reihenfolge. Alive ist die EINZIGE Live-Eingabe, die computeBlocked
+  // auswertet (deployZone.ts:109 Mauern, :123 Außen-Radius). Der String ist wertgleich
+  // über reine HP-Ticks (nur Zahlen ändern sich) und wechselt erst, wenn etwas stirbt
+  // (Bresche/Einsturz) — genau dann, wenn sich die Sperrzone ändern kann.
+  const deadSig = useMemo(() => {
+    let s = '';
+    for (const b of buildings) s += hpById.get(b.id)?.alive === false ? '0' : '1';
+    return s;
+  }, [buildings, hpById]);
+  // Sperrzonen-Gebäude hängen an `deadSig` statt an der pro-Tick frischen `hpById`-
+  // Referenz → nur EIN Neubau pro Tod statt pro Tick. Alive kommt positionsgleich aus
+  // `deadSig` ('1' = lebend/fehlend, '0' = tot) — identische Semantik zu `?? true`.
   const zoneBuildings = useMemo<DeployZoneBuilding[]>(
     () =>
-      buildings.map((b) => ({
+      buildings.map((b, i) => ({
         building_type: b.building_type,
         gx: b.gx,
         gy: b.gy,
-        alive: hpById.get(b.id)?.alive ?? true,
+        alive: deadSig[i] !== '0',
       })),
-    [buildings, hpById],
+    [buildings, deadSig],
   );
   // Der Tap-Reject in handleTap liest stets den aktuellen Stand über diesen Ref.
   zoneBuildingsRef.current = zoneBuildings;
